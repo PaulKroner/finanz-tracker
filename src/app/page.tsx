@@ -1,13 +1,12 @@
+import Footer from "@/components/footer/footer";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="w-full h-full">
       <main className="">
 
       </main>
-      <footer className="">
-
-      </footer>
+      <Footer />
     </div>
   );
 }
