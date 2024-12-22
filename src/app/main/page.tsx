@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import DashboardSaldo from "@/components/dashboard/saldo";
 
 type MainProps = {
   view: "home" | "income" | "expanse" | "dashboard";
@@ -44,6 +45,12 @@ const Main = ({ view, setView }: MainProps) => {
           <Button onClick={() => setView("home")}>Zurück</Button>
         </div>
       )}
+
+      {/* hier kommt Dashboard hin */}
+      <div>ab hier</div>
+
+      <DashboardSaldo />
+
     </main>
   );
 };
