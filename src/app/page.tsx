@@ -9,9 +9,22 @@ export default function Home() {
   const [view, setView] = useState<"home" | "income" | "expanse" | "dashboard">("home");
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar setView={setView} />
+
       <Main view={view} setView={setView} />
       <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+      <Footer />
+
+      <section className="fixed bottom-0 w-full">
+        <Navbar setView={setView} />
+      </section>
     </div>
   );
 }
