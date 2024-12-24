@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import DashboardSaldo from "@/components/dashboard/saldo";
+import DashboardPage from "./dashboard/page";
 
 type MainProps = {
   view: "home" | "income" | "expanse" | "dashboard";
@@ -10,7 +10,7 @@ type MainProps = {
 
 const Main = ({ view, setView }: MainProps) => {
   return (
-    <main className="flex-grow p-4">
+    <main className="flex-grow p-4 mb-20">
       {view === "home" && (
         <div>
           <h1>Main Page</h1>
@@ -40,16 +40,10 @@ const Main = ({ view, setView }: MainProps) => {
 
       {view === "dashboard" && (
         <div>
-          <h1>Dashboard</h1>
-          <p>Hier ist Ihr Dashboard.</p>
+          <DashboardPage />
           <Button onClick={() => setView("home")}>Zurück</Button>
         </div>
       )}
-
-      {/* hier kommt Dashboard hin */}
-      <div>ab hier</div>
-
-      <DashboardSaldo />
 
     </main>
   );
