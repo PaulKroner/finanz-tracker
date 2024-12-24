@@ -2,7 +2,7 @@ import DashboardSaldo from "@/components/dashboard/saldo";
 import LastActions from "@/components/dashboard/lastActions";
 import ChartYearly from "@/components/dashboard/chartYearly";
 
-const DashboardPage = () => {
+const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
@@ -13,4 +13,4 @@ const DashboardPage = () => {
   );
 }
 
-export default DashboardPage;
+export default Dashboard;

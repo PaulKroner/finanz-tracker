@@ -5,11 +5,7 @@ import { MdAttachMoney } from "react-icons/md";
 import { MdMoneyOff } from "react-icons/md";
 import { IoPersonCircle } from "react-icons/io5";
 
-type NavbarProps = {
-  setView: (view: "home" | "income" | "expanse" | "dashboard") => void;
-};
-
-const Navbar = ({ setView }: NavbarProps) => {
+const Navbar = () => {
   return (
     <nav className="bg-lime-100 p-2">
       <ul className="flex flex-row flex-wrap gap-3 justify-around">
