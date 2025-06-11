@@ -4,7 +4,7 @@ import ChartYearly from "@/components/dashboard/chartYearly";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <h1>Dashboard</h1>
       <ChartYearly />
       <DashboardSaldo />
