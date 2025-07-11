@@ -1,8 +1,14 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using backend.Interfaces;
+using backend.Models;
+using backend.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 Env.Load();
 string connectionString =
@@ -17,12 +23,20 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Controller aktivieren
 builder.Services.AddControllers();
+builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
+// builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+  app.UseSwagger();
+  app.UseSwaggerUI();
+}
 
 // Routing aktivieren
 app.MapControllers();
 
-app.MapGet("/", () => "Hello World!");
+// app.MapGet("/", () => "Hello World!");
 
 app.Run();
