@@ -9,7 +9,7 @@ namespace backend.Mappers
 {
   public static class ExpanseMapper
   {
-    public static ExpenseDto ToIncomeDto(this Expense expensemodel)
+    public static ExpenseDto ToExpenseDto(this Expense expensemodel)
     {
       return new ExpenseDto
       {
@@ -21,7 +21,7 @@ namespace backend.Mappers
       };
     }
 
-    public static Expense ToIncomeFromCreateDto(this CreateExpenseRequestDto expenseDto)
+    public static Expense ToExpenseFromCreateDto(this CreateExpenseRequestDto expenseDto)
     {
       return new Expense
       {
@@ -32,7 +32,7 @@ namespace backend.Mappers
       };
     }
 
-    public static Expense ToIncomeFromUpdate(this UpdateExpenseRequestDto expenseDto)
+    public static Expense ToExpenseFromUpdate(this UpdateExpenseRequestDto expenseDto)
     {
       return new Expense
       {
