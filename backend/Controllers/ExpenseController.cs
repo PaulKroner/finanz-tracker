@@ -1,32 +1,102 @@
-using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using backend.Data;
-using backend.Models;
-using Microsoft.EntityFrameworkCore;
+using backend.Dtos.Expense;
+using backend.Interfaces;
+using backend.Mappers;
+using dotnetTutorial.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+  [Route("api/expense")]
   [ApiController]
-  [Route("api/[controller]")]
   public class ExpenseController : ControllerBase
   {
-    // private readonly Data.DbContext _context;
+    private readonly AppDbContext _context;
+    private readonly IExpenseRepository _expenseRepo;
 
-    // public ExpenseController(Data.DbContext context)
-    // {
-    //     _context = context;
-    // }
-
-    // [HttpGet("getAllExpenses")]
-    // public async Task<ActionResult<IEnumerable<Expense>>> GetAllExpenses()
-    // {
-    //     var expenses = await _context.Expenses.ToListAsync();
-    //     return Ok(expenses);
-    // }
-
-    [HttpGet("getAllExpenses")]
-    public IActionResult GetAllExpenses()
+    public ExpenseController(AppDbContext context, IExpenseRepository expenseRepo)
     {
-      return Ok(new { message = "Dies ist eine Beispielantwort ohne Datenbankverbindung." });
+      _expenseRepo = expenseRepo;
+      _context = context;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var expenses = await _expenseRepo.GetAllAsync(query);
+      var expenseDto = expenses.Select(s => s.ToExpenseDto());
+
+      return Ok(expenses);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var expense = await _expenseRepo.GetbyIdAsync(id);
+
+      if (expense == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(expense);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateExpenseRequestDto expenseDto)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var expenseModel = expenseDto.ToExpenseFromCreateDto();
+
+      await _expenseRepo.CreateAsync(expenseModel);
+
+      return CreatedAtAction(nameof(GetById), new { id = expenseModel.Id }, expenseModel.ToExpenseDto());
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateExpenseRequestDto updateDto)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var expenseModel = await _expenseRepo.UpdateAsync(id, updateDto);
+
+      if (expenseModel == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(expenseModel.ToExpenseDto());
+    }
+
+    [HttpDelete]
+    [Route("id:int")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var expenseModel = await _expenseRepo.DeleteAsync(id);
+
+      if (expenseModel == null)
+      {
+        return NotFound();
+      }
+
+      return NoContent();
+    }
+
   }
 }
