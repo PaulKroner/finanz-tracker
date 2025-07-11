@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine # Verwende ein schlankes PostgreSQL-Image
+    restart: always
+    environment:
+      POSTGRES_DB: finance-tracker # Ändere dies zu deinem gewünschten Datenbanknamen
+      POSTGRES_USER: postgres    # Ändere dies zu deinem gewünschten Benutzernamen
+      POSTGRES_PASSWORD: deinpassword # Ändere dies zu deinem gewünschten Passwort (NICHT PRODUKTIV!)
+    ports:
+      - "5432:5432" # PostgreSQL Standard-Port
+    volumes:
+      - pgdata:/var/lib/postgresql/data # Persistente Daten speichern
+
+volumes:
+  pgdata:
