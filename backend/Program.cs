@@ -24,7 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Controller aktivieren
 builder.Services.AddControllers();
 builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
-// builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
+builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 
 var app = builder.Build();
 
