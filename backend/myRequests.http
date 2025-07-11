@@ -1,1 +1,3 @@
-GET http://localhost:5062/
+GET http://localhost:5062/api/expense/getAllExpenses
+
+###
