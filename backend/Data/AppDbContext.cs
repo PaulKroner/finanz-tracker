@@ -8,5 +8,6 @@ namespace backend.Data
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Expense> Expenses { get; set; } = null!;
+    public DbSet<Income> Incomes { get; set; } = null!;
   }
 }
