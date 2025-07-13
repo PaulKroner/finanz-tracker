@@ -49,10 +49,10 @@ namespace backend.Repository
         expenses = expenses.Where(s => s.Title.Contains(query.Title));
       }
 
-      // if (!string.IsNullOrWhiteSpace(query.Date))
-      // {
-      //   incomes = incomes.Where(s => s.Date.Contains(query.Date));
-      // }
+      if (query.Year.HasValue)
+      {
+        expenses = expenses.Where(s => s.Date.Year == query.Year.Value);
+      }
 
       var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
