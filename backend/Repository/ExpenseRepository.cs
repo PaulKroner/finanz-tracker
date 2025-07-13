@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.Dtos.Expense;
-using backend.Dtos.Income;
 using backend.Interfaces;
 using backend.Models;
 using dotnetTutorial.Helpers;

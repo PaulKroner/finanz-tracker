@@ -9,5 +9,6 @@ namespace backend.Data
 
     public DbSet<Expense> Expenses { get; set; } = null!;
     public DbSet<Income> Incomes { get; set; } = null!;
+    public DbSet<Category> Categories { get; set; } = null!;
   }
 }
