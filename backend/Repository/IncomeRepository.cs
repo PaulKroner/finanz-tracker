@@ -48,10 +48,10 @@ namespace backend.Repository
         incomes = incomes.Where(s => s.Title.Contains(query.Title));
       }
 
-      // if (!string.IsNullOrWhiteSpace(query.Date))
-      // {
-      //   incomes = incomes.Where(s => s.Date.Contains(query.Date));
-      // }
+      if (query.Year.HasValue)
+      {
+        incomes = incomes.Where(s => s.Date.Year == query.Year.Value);
+      }
 
       var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
