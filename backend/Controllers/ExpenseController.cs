@@ -81,8 +81,7 @@ namespace backend.Controllers
       return Ok(expenseModel.ToExpenseDto());
     }
 
-    [HttpDelete]
-    [Route("id:int")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
       if (!ModelState.IsValid)
