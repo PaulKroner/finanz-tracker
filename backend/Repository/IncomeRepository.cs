@@ -55,7 +55,7 @@ namespace backend.Repository
 
       var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
-      return await incomes.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+      return await incomes.OrderBy(i => i.Date).Skip(skipNumber).Take(query.PageSize).ToListAsync();
     }
 
     public async Task<Income?> GetbyIdAsync(int id)
