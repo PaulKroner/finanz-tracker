@@ -9,7 +9,8 @@ namespace dotnetTutorial.Helpers
   public class QueryObject
   {
     public string? Title { get; set; } = null;
-    public int? Year { get; set; }
+    public int? Year { get; set; } = null;
+    public int? Month { get; set; } = null;
     public string? SortBy { get; set; } = null;
     public bool IsDecending { get; set; } = false;
     public int PageNumber { get; set; } = 1;

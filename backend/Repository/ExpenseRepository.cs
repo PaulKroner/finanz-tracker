@@ -54,6 +54,11 @@ namespace backend.Repository
         expenses = expenses.Where(s => s.Date.Year == query.Year.Value);
       }
 
+      if (query.Month.HasValue)
+      {
+        expenses = expenses.Where(s => s.Date.Month == query.Month.Value);
+      }
+
       var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
       return await expenses.OrderBy(i => i.Date).Skip(skipNumber).Take(query.PageSize).ToListAsync();
