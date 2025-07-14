@@ -17,7 +17,7 @@ namespace backend.Mappers
         Id = incomemodel.Id,
         Title = incomemodel.Title,
         Amount = incomemodel.Amount,
-        Category = incomemodel.Category,
+        CategoryId = incomemodel.CategoryId,
         Date = incomemodel.Date,
       };
     }
@@ -28,7 +28,7 @@ namespace backend.Mappers
       {
         Title = incomeDto.Title,
         Amount = incomeDto.Amount,
-        Category = incomeDto.Category,
+        CategoryId = incomeDto.CategoryId,
         Date = incomeDto.Date
       };
     }
@@ -39,7 +39,7 @@ namespace backend.Mappers
       {
         Title = incomeDto.Title,
         Amount = incomeDto.Amount,
-        Category = incomeDto.Category,
+        CategoryId = incomeDto.CategoryId,
         Date = incomeDto.Date
       };
     }

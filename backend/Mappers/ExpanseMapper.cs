@@ -16,7 +16,7 @@ namespace backend.Mappers
         Id = expensemodel.Id,
         Title = expensemodel.Title,
         Amount = expensemodel.Amount,
-        Category = expensemodel.Category,
+        CategoryId = expensemodel.CategoryId,
         Date = expensemodel.Date,
       };
     }
@@ -27,7 +27,7 @@ namespace backend.Mappers
       {
         Title = expenseDto.Title,
         Amount = expenseDto.Amount,
-        Category = expenseDto.Category,
+        CategoryId = expenseDto.CategoryId,
         Date = expenseDto.Date
       };
     }
@@ -38,7 +38,7 @@ namespace backend.Mappers
       {
         Title = expenseDto.Title,
         Amount = expenseDto.Amount,
-        Category = expenseDto.Category,
+        CategoryId = expenseDto.CategoryId,
         Date = expenseDto.Date
       };
     }

@@ -84,7 +84,7 @@ namespace backend.Repository
 
       existingIncome.Title = incomeDto.Title;
       existingIncome.Amount = incomeDto.Amount;
-      existingIncome.Category = incomeDto.Category;
+      existingIncome.CategoryId = incomeDto.CategoryId;
       existingIncome.Date = incomeDto.Date;
 
       await _context.SaveChangesAsync();

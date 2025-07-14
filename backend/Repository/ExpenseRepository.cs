@@ -84,7 +84,7 @@ namespace backend.Repository
 
       existingExpense.Title = expenseDto.Title;
       existingExpense.Amount = expenseDto.Amount;
-      existingExpense.Category = expenseDto.Category;
+      existingExpense.CategoryId = expenseDto.CategoryId;
       existingExpense.Date = expenseDto.Date;
 
       await _context.SaveChangesAsync();

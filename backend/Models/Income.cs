@@ -10,7 +10,10 @@ namespace backend.Models
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public decimal Amount { get; set; }
-    public string Category { get; set; } = string.Empty;
+    // foreign key
+    public int CategoryId { get; set; }
+    // navigation property
+    public Category? Category { get; set; }
     public DateTime Date { get; set; }
   }
 }

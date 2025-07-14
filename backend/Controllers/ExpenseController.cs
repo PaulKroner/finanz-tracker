@@ -58,6 +58,12 @@ namespace backend.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
+      var categoryExists = await _context.Categories.FindAsync(expenseDto.CategoryId);
+      if (categoryExists == null)
+      {
+        return BadRequest($"Category with ID {expenseDto.CategoryId} does not exist.");
+      }
+
       var expenseModel = expenseDto.ToExpenseFromCreateDto();
 
       await _expenseRepo.CreateAsync(expenseModel);
@@ -70,6 +76,12 @@ namespace backend.Controllers
     {
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
+
+      var categoryExists = await _context.Categories.FindAsync(updateDto.CategoryId);
+      if (categoryExists == null)
+      {
+        return BadRequest($"Category with ID {updateDto.CategoryId} does not exist.");
+      }
 
       var expenseModel = await _expenseRepo.UpdateAsync(id, updateDto);
 

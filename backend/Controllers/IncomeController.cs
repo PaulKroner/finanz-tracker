@@ -58,6 +58,12 @@ namespace backend.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
+      var categoryExists = await _context.Categories.FindAsync(incomeDto.CategoryId);
+      if (categoryExists == null)
+      {
+        return BadRequest($"Category with ID {incomeDto.CategoryId} does not exist.");
+      }
+
       var incomeModel = incomeDto.ToIncomeFromCreateDto();
 
       await _incomeRepo.CreateAsync(incomeModel);
@@ -70,6 +76,12 @@ namespace backend.Controllers
     {
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
+
+      var categoryExists = await _context.Categories.FindAsync(updateDto.CategoryId);
+      if (categoryExists == null)
+      {
+        return BadRequest($"Category with ID {updateDto.CategoryId} does not exist.");
+      }
 
       var incomeModel = await _incomeRepo.UpdateAsync(id, updateDto);
 
