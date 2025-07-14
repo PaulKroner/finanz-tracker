@@ -17,5 +17,20 @@ namespace backend.Mappers
         Title = categorymodel.Title,
       };
     }
+    public static Category ToCategoryFromCreateDto(this CreateCategoryRequestDto categoryDto)
+    {
+      return new Category
+      {
+        Title = categoryDto.Title,
+      };
+    }
+
+    public static Category ToCategoryFromUpdate(this UpdateCategoryRequestDto categoryDto)
+    {
+      return new Category
+      {
+        Title = categoryDto.Title,
+      };
+    }
   }
 }

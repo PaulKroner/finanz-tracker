@@ -9,7 +9,7 @@ namespace backend.Models
   {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
-    // navigatio property for 1:n
+    // navigation property for 1:n
     public List<Income> Incomes { get; set; } = new();
   }
 }
