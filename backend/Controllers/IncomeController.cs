@@ -65,7 +65,7 @@ namespace backend.Controllers
       return CreatedAtAction(nameof(GetById), new { id = incomeModel.Id }, incomeModel.ToIncomeDto());
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateIncomeRequestDto updateDto)
     {
       if (!ModelState.IsValid)

@@ -65,7 +65,7 @@ namespace backend.Controllers
       return CreatedAtAction(nameof(GetById), new { id = expenseModel.Id }, expenseModel.ToExpenseDto());
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateExpenseRequestDto updateDto)
     {
       if (!ModelState.IsValid)
