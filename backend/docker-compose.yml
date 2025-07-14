@@ -12,6 +12,7 @@ services:
       - "5432:5432" # PostgreSQL Standard-Port
     volumes:
       - pgdata:/var/lib/postgresql/data # Persistente Daten speichern
+    container_name: my-finance-tracker-db
 
 volumes:
   pgdata:
