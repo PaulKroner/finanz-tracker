@@ -1,10 +1,10 @@
 "use client"
 
-import { Button } from '@/components/ui/button';
+import { Button } from '../../components/ui/button';
 import { FaChartLine } from "react-icons/fa6";
 import { IoPersonCircle } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Input } from "@/components/ui/input"
+import { Input } from "../../components/ui/input"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import {
@@ -16,14 +16,14 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
-import { cn } from "@/lib/utils"
-import { Calendar } from "@/components/ui/calendar"
+} from "../../components/ui/drawer"
+import { cn } from "../../lib/utils"
+import { Calendar } from "../../components/ui/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "../../components/ui/popover"
 import React from 'react';
 
 
