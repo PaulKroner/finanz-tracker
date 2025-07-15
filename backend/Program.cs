@@ -21,6 +21,17 @@ string connectionString =
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("AllowFrontend", policy =>
+  {
+    policy.WithOrigins("http://localhost:5173") // your frontend URL
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+  });
+});
+
 // Controller aktivieren
 builder.Services.AddControllers();
 builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
@@ -28,6 +39,8 @@ builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
+
+app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())
 {
