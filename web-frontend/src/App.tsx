@@ -1,19 +1,23 @@
 import './App.css'
 import Dashboard from "./pages/dashboard/page"
 import Navbar from "./components/navbar/page"
+import Footer from './pages/footer/page'
 
 function App() {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen p-4 mb-16">
+      <div className="w-full flex flex-col min-h-screen px-4 pt-4">
         <Dashboard />
-        <section className="fixed bottom-0 w-full">
-          <Navbar />
-        </section>
+
         {/* Footer needs to stick to the bottom but above the navbar */}
-        {/* <Footer /> */}
+        <Footer />
+
+
       </div>
+      <section className="sticky bottom-0 w-full">
+        <Navbar />
+      </section>
     </>
   )
 }

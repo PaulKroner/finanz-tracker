@@ -25,22 +25,6 @@ const Navbar = () => {
         {/* Income / Expense Insert */}
         <AddIncomeExpenseButton />
 
-
-        {/* <Button className="flex flex-col h-12 p-4">
-          <div className="">
-            <IoIosAddCircleOutline size={20} />
-          </div>
-        </Button>
-
-        <Button className="flex flex-col h-12 p-4">
-          <div className="">
-            <MdMoneyOff />
-          </div>
-          <div className="text-xs">
-            Ausgabe +
-          </div>
-        </Button> */}
-
         <Button className="flex flex-col h-12 p-4">
           <div className="">
             <IoPersonCircle />
