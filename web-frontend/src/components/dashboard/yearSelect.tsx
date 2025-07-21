@@ -2,15 +2,19 @@ import { ScrollArea, ScrollBar } from "../../components/ui/scroll-area"
 import { Button } from "../../components/ui/button";
 import { useEffect, useRef, useState } from "react";
 
-const YearSelect = () => {
+type YearSelectProps = {
+  onYearChange: (year: number) => void;
+};
+
+const YearSelect = ({ onYearChange }: YearSelectProps) => {
 
   const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState<number>(currentYear);
-
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const years = [2020, 2021, 2022, 2023, 2024, 2025];
   const yearRefs = useRef<Record<number, HTMLButtonElement | null>>({});
 
   useEffect(() => {
+    // Scroll to the current year button
     const currentRef = yearRefs.current[selectedYear];
     if (currentRef) {
       currentRef.scrollIntoView({
@@ -19,19 +23,24 @@ const YearSelect = () => {
         block: "nearest",
       });
     }
+
+    // Notify parent component about the selected year
+    onYearChange(selectedYear); // Notify parent on mount and on year change
   }, [selectedYear]);
 
   return (
     <div className="flex items-center justify-center w-full p-4">
-      <ScrollArea className="flex items-center justify-center w-full rounded-md border whitespace-nowrap">
-        <div className="flex items-center justify-center w-full space-x-4 p-4">
+      <ScrollArea className="w-full rounded-md border whitespace-nowrap">
+        <div className="flex w-max space-x-4 p-4">
           {years.map((year) => (
             <Button
               key={year}
               variant={selectedYear === year ? "default" : "outline"}
               className="w-20"
               onClick={() => setSelectedYear(year)}
-              ref={(el) => { yearRefs.current[year] = el; }}
+              ref={(el) => {
+                yearRefs.current[year] = el;
+              }}
             >
               {year}
             </Button>

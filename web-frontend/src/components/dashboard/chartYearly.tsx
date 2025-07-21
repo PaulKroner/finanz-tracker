@@ -34,7 +34,11 @@ type IncomeEntry = {
   date: string;
 };
 
-const TestGraph = () => {
+type ChartYearlyProps = {
+  selectedYear: number;
+};
+
+const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
   const [chartData, setChartData] = useState(
     months.map((month) => ({ month, einnahmen: 0, ausgaben: 0 }))
   );
@@ -43,8 +47,8 @@ const TestGraph = () => {
     const fetchData = async () => {
       try {
         const [incomeRes, expenseRes] = await Promise.all([
-          axios.get<IncomeEntry[]>("http://localhost:5062/api/income"),
-          axios.get<IncomeEntry[]>("http://localhost:5062/api/expense"),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${selectedYear}`),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}`),
         ]);
 
         const data = months.map((month) => ({
@@ -53,16 +57,16 @@ const TestGraph = () => {
           ausgaben: 0,
         }));
 
-        // Process incomes
         incomeRes.data.forEach((entry) => {
           const date = new Date(entry.date);
+          if (date.getFullYear() !== selectedYear) return;
           const monthIndex = date.getMonth();
           data[monthIndex].einnahmen += entry.amount;
         });
 
-        // Process expenses
         expenseRes.data.forEach((entry) => {
           const date = new Date(entry.date);
+          if (date.getFullYear() !== selectedYear) return;
           const monthIndex = date.getMonth();
           data[monthIndex].ausgaben += entry.amount;
         });
@@ -74,7 +78,7 @@ const TestGraph = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedYear]);
 
   return (
     <div>
@@ -99,4 +103,4 @@ const TestGraph = () => {
   );
 }
 
-export default TestGraph;
+export default ChartYearly;
