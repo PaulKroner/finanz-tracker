@@ -29,14 +29,14 @@ const YearSelect = ({ onYearChange }: YearSelectProps) => {
   }, [selectedYear]);
 
   return (
-    <div className="flex items-center justify-center w-full p-4">
-      <ScrollArea className="w-full rounded-md border whitespace-nowrap">
-        <div className="flex w-max space-x-4 p-4">
+    <div className="flex items-center justify-center w-full md:w-150 p-4">
+      <ScrollArea className="w-full rounded-xl border whitespace-nowrap">
+        <div className="flex items-center justify-center w-full space-x-4 p-4">
           {years.map((year) => (
             <Button
               key={year}
               variant={selectedYear === year ? "default" : "outline"}
-              className="w-20"
+              className="w-20 rounded-full"
               onClick={() => setSelectedYear(year)}
               ref={(el) => {
                 yearRefs.current[year] = el;
