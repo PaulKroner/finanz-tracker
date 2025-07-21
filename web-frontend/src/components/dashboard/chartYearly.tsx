@@ -1,8 +1,14 @@
-"use client"
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import type { ChartConfig } from "../../components/ui/chart"
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "../../components/ui/chart"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent
+} from "../../components/ui/chart"
 
 const chartConfig = {
   einnahmen: {
@@ -13,28 +19,67 @@ const chartConfig = {
     label: "Ausgaben",
     color: "#f87171",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
-const ChartYearly = () => {
-  const chartData = [
-    { month: "Januar", einnahmen: 186, ausgaben: 80 },
-    { month: "Februar", einnahmen: 305, ausgaben: 200 },
-    { month: "März", einnahmen: 237, ausgaben: 120 },
-    { month: "April", einnahmen: 73, ausgaben: 190 },
-    { month: "Mai", einnahmen: 209, ausgaben: 130 },
-    { month: "Juni", einnahmen: 214, ausgaben: 140 },
-    { month: "Juli", einnahmen: 214, ausgaben: 140 },
-    { month: "August", einnahmen: 214, ausgaben: 140 },
-    { month: "September", einnahmen: 214, ausgaben: 140 },
-    { month: "Oktober", einnahmen: 214, ausgaben: 140 },
-    { month: "November", einnahmen: 214, ausgaben: 140 },
-    { month: "Dezember", einnahmen: 214, ausgaben: 140 },
-  ]
+const months = [
+  "Januar", "Februar", "März", "April", "Mai", "Juni",
+  "Juli", "August", "September", "Oktober", "November", "Dezember"
+];
+
+type IncomeEntry = {
+  id: number;
+  title: string;
+  amount: number;
+  categoryId: number;
+  date: string;
+};
+
+const TestGraph = () => {
+  const [chartData, setChartData] = useState(
+    months.map((month) => ({ month, einnahmen: 0, ausgaben: 0 }))
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [incomeRes, expenseRes] = await Promise.all([
+          axios.get<IncomeEntry[]>("http://localhost:5062/api/income"),
+          axios.get<IncomeEntry[]>("http://localhost:5062/api/expense"),
+        ]);
+
+        const data = months.map((month) => ({
+          month,
+          einnahmen: 0,
+          ausgaben: 0,
+        }));
+
+        // Process incomes
+        incomeRes.data.forEach((entry) => {
+          const date = new Date(entry.date);
+          const monthIndex = date.getMonth();
+          data[monthIndex].einnahmen += entry.amount;
+        });
+
+        // Process expenses
+        expenseRes.data.forEach((entry) => {
+          const date = new Date(entry.date);
+          const monthIndex = date.getMonth();
+          data[monthIndex].ausgaben += entry.amount;
+        });
+
+        setChartData(data);
+      } catch (error) {
+        console.error("Fehler beim Laden der Daten:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
       <h1>Yearly Chart</h1>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <ChartContainer config={chartConfig} className="h-70 md:h-120 w-full md:px-12 xl:px-40">
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
@@ -54,4 +99,4 @@ const ChartYearly = () => {
   );
 }
 
-export default ChartYearly;
+export default TestGraph;

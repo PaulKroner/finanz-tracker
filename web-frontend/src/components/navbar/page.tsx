@@ -5,6 +5,7 @@ import AddIncomeExpenseButton from './addIncomeExpenseButton';
 
 
 const Navbar = () => {
+
   return (
     <nav className="bg-lime-100 p-2">
       <ul className="flex flex-row flex-wrap gap-3 justify-around">
