@@ -22,6 +22,7 @@ import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { useState } from "react";
 import axios from "axios";
+import { useChartUpdate } from "../../context/chartUpdateContext";
 
 type Selection = "income" | "expense" | null;
 
@@ -32,6 +33,7 @@ const AddIncomeExpenseButton = () => {
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
 
+  const { refresh } = useChartUpdate()
 
   const handleSubmit = async () => {
     if (!selected || !title || !amount || !date || categoryId === null) {
@@ -62,6 +64,8 @@ const AddIncomeExpenseButton = () => {
       setTitle("");
       setAmount("");
       setDate(undefined);
+
+      refresh(); // Trigger chart update
     } catch (error) {
       console.error("Fehler beim Senden:", error);
       alert("Fehler beim Hinzufügen des Eintrags.");

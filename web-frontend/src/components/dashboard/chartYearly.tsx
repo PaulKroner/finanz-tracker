@@ -9,6 +9,7 @@ import {
   ChartLegend,
   ChartLegendContent
 } from "../../components/ui/chart"
+import { useChartUpdate } from "../../context/chartUpdateContext";
 
 const chartConfig = {
   einnahmen: {
@@ -42,6 +43,8 @@ const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
   const [chartData, setChartData] = useState(
     months.map((month) => ({ month, einnahmen: 0, ausgaben: 0 }))
   );
+
+  const { trigger } = useChartUpdate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +81,7 @@ const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
     };
 
     fetchData();
-  }, [selectedYear]);
+  }, [selectedYear, trigger]);
 
   return (
     <div>
