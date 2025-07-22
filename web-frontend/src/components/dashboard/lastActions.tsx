@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useState, useEffect, use } from "react";
 import {
   Table,
   TableBody,
@@ -8,7 +10,57 @@ import {
   TableRow,
 } from "../../components/ui/table"
 
+
+type IncomeEntry = {
+  id: number;
+  title: string;
+  amount: number;
+  categoryId: number;
+  date: string;
+};
+
 const LastActions = () => {
+
+  const [latestEntries, setLatestEntries] = useState<any[]>([]);
+
+
+  const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [incomeRes, expensesRes] = await Promise.all([
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${currentYear}`),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${currentYear}`)
+        ]);
+
+        const incomeData = incomeRes.data.map((entry: any) => ({
+          ...entry,
+          type: "income",
+        }));
+
+        const expensesData = expensesRes.data.map((entry: any) => ({
+          ...entry,
+          type: "expense",
+        }));
+
+        // Combine, sort by date, and take the latest 10
+        const combined = [...incomeData, ...expensesData]
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 10);
+
+        console.log(combined);
+        // Hier kannst du z. B. setData(combined) aufrufen, um es in deinem UI zu verwenden
+
+        setLatestEntries(combined);
+
+      } catch (error) {
+        console.error("Error fetching last actions:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -22,18 +74,21 @@ const LastActions = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow className="bg-red-400">
-            <TableCell className="font-medium">21.12.2024</TableCell>
-            <TableCell className="font-medium">Kauf bei Steam</TableCell>
-            <TableCell className="font-medium">- 5.00 €</TableCell>
-          </TableRow>
+          {latestEntries.map((entry, index) => {
+            const isIncome = entry.type === "income";
+            const amount = parseFloat(entry.amount).toFixed(2);
+            const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
 
-          <TableRow className="bg-green-400">
-            <TableCell className="font-medium">19.11.2024</TableCell>
-            <TableCell className="font-medium">Verkauf eBay</TableCell>
-            <TableCell className="font-medium">+ 20.00 €</TableCell>
-          </TableRow>
-
+            return (
+              <TableRow key={index} className={isIncome ? "bg-green-400" : "bg-red-400"}>
+                <TableCell className="font-medium">{formattedDate}</TableCell>
+                <TableCell className="font-medium">{entry.title}</TableCell>
+                <TableCell className="font-medium">
+                  {isIncome ? "+ " : "- "} {amount} €
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
 
