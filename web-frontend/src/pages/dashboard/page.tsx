@@ -17,7 +17,7 @@ const Dashboard = () => {
       </div>
 
       <ChartYearly selectedYear={selectedYear} />
-      <DashboardSaldo />
+      <DashboardSaldo selectedYear={selectedYear} />
       <LastActions />
     </div>
   );

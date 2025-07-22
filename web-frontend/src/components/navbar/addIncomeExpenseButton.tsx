@@ -22,7 +22,7 @@ import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { useState } from "react";
 import axios from "axios";
-import { useChartUpdate } from "../../context/chartUpdateContext";
+import { useChartUpdate } from "../../context/ChartUpdateContext";
 
 type Selection = "income" | "expense" | null;
 

@@ -2,7 +2,7 @@ import './App.css'
 import Dashboard from "./pages/dashboard/page"
 import Navbar from "./components/navbar/page"
 import Footer from './pages/footer/page'
-import { ChartUpdateProvider } from './context/chartUpdateContext'
+import { ChartUpdateProvider } from './context/ChartUpdateContext'
 
 function App() {
 
