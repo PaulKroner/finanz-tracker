@@ -6,24 +6,28 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table"
-import { useYearlyFinanceData } from "../../customHooks/useYearlyFinanceData";
+import { useMonthlyFinanceData } from "../../customHooks/detailsHooks/useDetailsFinanceData";
 
-type ChartYearlyProps = {
+type ChartYearlProps = {
   selectedYear: number;
 };
 
-const DashboardSaldo = ({ selectedYear }: ChartYearlyProps) => {
+type ChartMonthProps = {
+  selectedMonth: number;
+};
 
-  const chartData = useYearlyFinanceData(selectedYear);
+const DetailsSaldo = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
-  // Einnahmen und Ausgaben summieren
-  const totalIncome = chartData.reduce((sum, entry) => sum + entry.einnahmen, 0);
-  const totalExpense = chartData.reduce((sum, entry) => sum + entry.ausgaben, 0);
+  const chartData = useMonthlyFinanceData(selectedYear, selectedMonth);
+
+  const totalIncome = chartData.einnahmen;
+  const totalExpense = chartData.ausgaben;
   const totalDifference = totalIncome - totalExpense;
 
   return (
     <>
       <div className="border rounded-xl p-6 shadow-sm">
+        {chartData.month}
         <Table className="">
           {/* <TableCaption>Saldo gesamt</TableCaption> */}
           <TableHeader>
@@ -58,4 +62,4 @@ const DashboardSaldo = ({ selectedYear }: ChartYearlyProps) => {
   );
 }
 
-export default DashboardSaldo;
+export default DetailsSaldo;
