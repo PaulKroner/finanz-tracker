@@ -3,19 +3,27 @@ import Dashboard from "./pages/dashboard/page"
 import Navbar from "./components/navbar/page"
 import Footer from './pages/footer/page'
 import { ChartUpdateProvider } from './context/ChartUpdateContext'
+import { Navigate, Route, Routes } from 'react-router'
+import DetailsPage from './pages/details/DetailsPage'
 
 function App() {
 
   return (
     <>
       <ChartUpdateProvider>
-        <div className="w-full flex flex-col min-h-screen px-4 pt-4">
-          <Dashboard />
+        <main className="w-full flex flex-col min-h-screen px-4 md:px-20 pt-4">
 
-          {/* Footer needs to stick to the bottom but above the navbar */}
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/details" element={<DetailsPage />} />
+
+            {/* Catch all unknown routes and redirect to NotFoundPage */}
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
+          </Routes>
+
           <Footer />
-
-        </div>
+        </main>
         <section className="sticky bottom-0 w-full">
           <Navbar />
         </section>
