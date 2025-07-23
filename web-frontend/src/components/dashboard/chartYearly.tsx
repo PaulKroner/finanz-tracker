@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import type { ChartConfig } from "../../components/ui/chart"
 import {
   ChartContainer,
@@ -27,7 +25,7 @@ type ChartYearlyProps = {
 };
 
 const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
-  
+
   const chartData = useYearlyFinanceData(selectedYear);
 
   return (
@@ -36,6 +34,12 @@ const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
       <ChartContainer config={chartConfig} className="h-70 md:h-120 w-full md:px-12 xl:px-40">
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            tickMargin={10}
+            width={40} // optional: Platz für Ticks reservieren
+          />
           <XAxis
             dataKey="month"
             tickLine={false}
