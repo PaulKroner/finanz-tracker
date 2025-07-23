@@ -23,6 +23,7 @@ import { Calendar as CalendarIcon } from "lucide-react"
 import { useState } from "react";
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
+import { useCategories } from "../../customHooks/useCategories";
 
 type Selection = "income" | "expense" | null;
 
@@ -32,6 +33,8 @@ const AddIncomeExpenseButton = () => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
+
+  const categories = useCategories();
 
   const { refresh } = useChartUpdate()
 
@@ -138,13 +141,13 @@ const AddIncomeExpenseButton = () => {
               onChange={(e) => setCategoryId(Number(e.target.value))}
             >
               <option value="" disabled>Kategorie wählen</option>
-              <option value={1}>Lebensmittel</option>
-              <option value={2}>Miete</option>
-              <option value={3}>Gehalt</option>
-              {/* Add more as needed */}
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.title}
+                </option>
+              ))}
             </select>
           </div>
-
 
           {/* calendar */}
           <div className="flex flex-row justify-center items-center">

@@ -3,6 +3,7 @@ import LastActions from "../../components/dashboard/lastActions";
 import ChartYearly from "../../components/dashboard/chartYearly";
 import YearSelect from "../../components/dashboard/yearSelect";
 import { useState } from "react";
+import ChartCategoryYearly from "../../components/dashboard/ChartCategoryYearly";
 
 const Dashboard = () => {
 
@@ -17,7 +18,11 @@ const Dashboard = () => {
       </div>
 
       <ChartYearly selectedYear={selectedYear} />
+
       <DashboardSaldo selectedYear={selectedYear} />
+
+      <ChartCategoryYearly selectedYear={selectedYear} />
+
       <LastActions />
     </div>
   );
