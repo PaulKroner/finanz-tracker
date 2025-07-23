@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useChartUpdate } from "../context/ChartUpdateContext";
+import { useChartUpdate } from "../../context/ChartUpdateContext";
 
 type ExpenseEntry = {
   id: number;

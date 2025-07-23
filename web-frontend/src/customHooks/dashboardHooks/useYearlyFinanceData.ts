@@ -1,7 +1,6 @@
-// hooks/useYearlyFinanceData.ts
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useChartUpdate } from "../context/ChartUpdateContext";
+import { useChartUpdate } from "../../context/ChartUpdateContext";
 
 const months = [
   "Januar", "Februar", "März", "April", "Mai", "Juni",
