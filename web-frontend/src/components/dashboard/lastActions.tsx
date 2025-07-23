@@ -49,9 +49,6 @@ const LastActions = () => {
           .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
           .slice(0, 10);
 
-        console.log(combined);
-        // Hier kannst du z. B. setData(combined) aufrufen, um es in deinem UI zu verwenden
-
         setLatestEntries(combined);
 
       } catch (error) {
