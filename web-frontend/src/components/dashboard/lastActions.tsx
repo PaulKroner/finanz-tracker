@@ -1,9 +1,8 @@
 import axios from "axios";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
