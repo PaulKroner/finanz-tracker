@@ -29,8 +29,8 @@ const YearSelect = ({ onYearChange }: YearSelectProps) => {
   }, [selectedYear]);
 
   return (
-    <div className="flex items-center justify-center w-full md:w-150 p-4">
-      <ScrollArea className="w-full rounded-xl border whitespace-nowrap">
+    <div className="flex items-center justify-center w-full md:w-150">
+      <ScrollArea className="w-full rounded-xl border shadow-sm whitespace-nowrap">
         <div className="flex items-center justify-center w-full space-x-4 p-4">
           {years.map((year) => (
             <Button

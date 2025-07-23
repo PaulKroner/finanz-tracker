@@ -61,34 +61,35 @@ const LastActions = () => {
 
   return (
     <>
-      <Table className="">
-        {/* <TableCaption>Saldo gesamt</TableCaption> */}
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[200px]">Datum</TableHead>
-            <TableHead className="w-[200px]">Was</TableHead>
-            <TableHead className="w-[200px]">Betrag</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {latestEntries.map((entry, index) => {
-            const isIncome = entry.type === "income";
-            const amount = parseFloat(entry.amount).toFixed(2);
-            const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
+      <div className="border rounded-xl p-6 shadow-sm">
+        <Table className="">
+          {/* <TableCaption>Saldo gesamt</TableCaption> */}
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[200px]">Datum</TableHead>
+              <TableHead className="w-[200px]">Was</TableHead>
+              <TableHead className="w-[200px]">Betrag</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {latestEntries.map((entry, index) => {
+              const isIncome = entry.type === "income";
+              const amount = parseFloat(entry.amount).toFixed(2);
+              const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
 
-            return (
-              <TableRow key={index} className={isIncome ? "bg-green-400" : "bg-red-400"}>
-                <TableCell className="font-medium">{formattedDate}</TableCell>
-                <TableCell className="font-medium">{entry.title}</TableCell>
-                <TableCell className="font-medium">
-                  {isIncome ? "+ " : "- "} {amount} €
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-
+              return (
+                <TableRow key={index} className={isIncome ? "bg-green-400" : "bg-red-400"}>
+                  <TableCell className="font-medium">{formattedDate}</TableCell>
+                  <TableCell className="font-medium">{entry.title}</TableCell>
+                  <TableCell className="font-medium">
+                    {isIncome ? "+ " : "- "} {amount} €
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }

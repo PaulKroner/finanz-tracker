@@ -29,9 +29,9 @@ const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
   const chartData = useYearlyFinanceData(selectedYear);
 
   return (
-    <div>
+    <div className="border rounded-xl p-6 shadow-sm">
       <h1>Yearly Chart</h1>
-      <ChartContainer config={chartConfig} className="h-70 md:h-120 w-full md:px-12 xl:px-40">
+      <ChartContainer config={chartConfig} className="h-70 md:h-120 w-full">
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
           <YAxis
