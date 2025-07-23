@@ -14,11 +14,8 @@ const DetailsPage = () => {
       <div className="flex flex-col justify-center items-center gap-3">
         <YearSelect onYearChange={setSelectedYear} />
         <MonthSelect
-          onMonthChange={(month: string) => {
-            const parsed = Number(month);
-            if (!isNaN(parsed)) {
-              setSelectedMonth(parsed);
-            }
+          onMonthChange={(monthIndex: number) => {
+            setSelectedMonth(monthIndex);
           }}
         />
       </div>
