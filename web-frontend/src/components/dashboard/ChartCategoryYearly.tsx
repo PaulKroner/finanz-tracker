@@ -33,7 +33,7 @@ const ChartCategoryYearly = ({ selectedYear }: ChartYearlyProps) => {
   return (
     <div>
 
-      <Card className="flex flex-col">
+      <Card className="flex flex-col py-0 pt-6">
         <CardHeader className="items-center pb-0">
           <CardTitle>Ausgaben nach Kategorie</CardTitle>
           <CardDescription>{selectedYear}</CardDescription>
@@ -41,7 +41,7 @@ const ChartCategoryYearly = ({ selectedYear }: ChartYearlyProps) => {
         <CardContent className="flex-1 pb-0">
           <ChartContainer
             config={chartConfig}
-            className="[&_.recharts-text]:fill-background mx-auto aspect-square max-h-[250px]"
+            className="[&_.recharts-text]:fill-background mx-auto aspect-square max-h-[350px]"
           >
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent nameKey="amount" hideLabel />} />
@@ -50,7 +50,7 @@ const ChartCategoryYearly = ({ selectedYear }: ChartYearlyProps) => {
                   dataKey="category"
                   className="fill-background"
                   stroke="none"
-                  fontSize={12}
+                  fontSize={14}
                 />
               </Pie>
             </PieChart>
