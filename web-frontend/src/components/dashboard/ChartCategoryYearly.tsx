@@ -1,4 +1,4 @@
-import { useCategoryExpenseData } from "../../customHooks/useCategoryExpenseData"
+import { useCategoryExpenseData } from "../../customHooks/dashboardHooks/useCategoryExpenseData"
 import { LabelList, Pie, PieChart } from "recharts"
 import {
   Card,
@@ -17,8 +17,6 @@ import {
 const chartConfig = {
   // necessary for the chart to work
 } satisfies ChartConfig
-
-
 
 export const description = "A pie chart with a label list"
 

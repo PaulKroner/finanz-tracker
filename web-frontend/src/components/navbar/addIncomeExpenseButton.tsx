@@ -22,7 +22,7 @@ import { Calendar as CalendarIcon } from "lucide-react"
 import { useState } from "react";
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
-import { useCategories } from "../../customHooks/useCategories";
+import { useCategories } from "../../customHooks/dashboardHooks/useCategories";
 
 type Selection = "income" | "expense" | null;
 

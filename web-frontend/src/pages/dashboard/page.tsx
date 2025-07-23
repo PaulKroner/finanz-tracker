@@ -1,7 +1,7 @@
-import DashboardSaldo from "../../components/dashboard/saldo";
+import DashboardSaldo from "../../components/dashboard/DashboardSaldo";
 import LastActions from "../../components/dashboard/lastActions";
 import ChartYearly from "../../components/dashboard/chartYearly";
-import YearSelect from "../../components/dashboard/yearSelect";
+import YearSelect from "../../components/ui/yearSelect";
 import { useState } from "react";
 import ChartCategoryYearly from "../../components/dashboard/ChartCategoryYearly";
 

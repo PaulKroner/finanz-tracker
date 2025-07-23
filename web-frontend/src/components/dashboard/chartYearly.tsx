@@ -7,7 +7,7 @@ import {
   ChartLegend,
   ChartLegendContent
 } from "../../components/ui/chart"
-import { useYearlyFinanceData } from "../../customHooks/useYearlyFinanceData";
+import { useYearlyFinanceData } from "../../customHooks/dashboardHooks/useYearlyFinanceData";
 
 const chartConfig = {
   einnahmen: {
