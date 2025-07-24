@@ -9,16 +9,14 @@ const DetailsPage = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   return (
-    <div>
-      <h1>Details Page</h1>
-      <div className="flex flex-col justify-center items-center gap-3">
-        <YearSelect onYearChange={setSelectedYear} />
-        <MonthSelect
-          onMonthChange={(monthIndex: number) => {
-            setSelectedMonth(monthIndex);
-          }}
-        />
-      </div>
+
+    <div className="flex flex-col justify-center items-center gap-4">
+      <YearSelect onYearChange={setSelectedYear} />
+      <MonthSelect
+        onMonthChange={(monthIndex: number) => {
+          setSelectedMonth(monthIndex);
+        }}
+      />
 
       <DetailsSaldo selectedYear={selectedYear} selectedMonth={selectedMonth} />
 

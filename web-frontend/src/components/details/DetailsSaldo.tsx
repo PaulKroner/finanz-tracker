@@ -26,14 +26,13 @@ const DetailsSaldo = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMo
 
   return (
     <>
-      <div className="border rounded-xl p-6 shadow-sm">
+      <div className="border rounded-xl p-6 shadow-sm md:w-150">
         {chartData.month}
-        <Table className="">
+        <Table>
           {/* <TableCaption>Saldo gesamt</TableCaption> */}
           <TableHeader>
             <TableRow>
               <TableHead className="w-[200px]">Einnahmen/Ausgaben-Differenz</TableHead>
-              {/* <TableHead>Summe</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -29,7 +29,6 @@ const DashboardSaldo = ({ selectedYear }: ChartYearlyProps) => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[200px]">Einnahmen/Ausgaben-Differenz</TableHead>
-              {/* <TableHead>Summe</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
