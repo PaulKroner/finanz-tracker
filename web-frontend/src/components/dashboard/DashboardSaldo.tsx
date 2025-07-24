@@ -23,7 +23,7 @@ const DashboardSaldo = ({ selectedYear }: ChartYearlyProps) => {
 
   return (
     <>
-      <div className="border rounded-xl p-6 shadow-sm">
+      <div className="border rounded-xl p-4 shadow-sm">
         <Table className="">
           {/* <TableCaption>Saldo gesamt</TableCaption> */}
           <TableHeader>

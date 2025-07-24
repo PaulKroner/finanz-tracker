@@ -26,7 +26,7 @@ const DetailsSaldo = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMo
 
   return (
     <>
-      <div className="border rounded-xl p-6 shadow-sm md:w-150">
+      <div className="border rounded-xl p-4 shadow-sm w-full md:w-150">
         {chartData.month}
         <Table>
           {/* <TableCaption>Saldo gesamt</TableCaption> */}

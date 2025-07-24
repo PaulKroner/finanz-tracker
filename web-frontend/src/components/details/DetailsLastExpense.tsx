@@ -55,7 +55,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
   }, [selectedYear, selectedMonth, trigger]);
 
   return (
-    <div className="border rounded-xl p-6 shadow-sm w-full md:w-150">
+    <div className="border rounded-xl p-4 shadow-sm w-full md:w-150">
       <h2 className="text-lg font-semibold mb-4">Ausgaben</h2>
       <Table>
         <TableHeader>

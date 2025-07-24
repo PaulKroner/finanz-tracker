@@ -29,7 +29,7 @@ const ChartYearly = ({ selectedYear }: ChartYearlyProps) => {
   const chartData = useYearlyFinanceData(selectedYear);
 
   return (
-    <div className="border rounded-xl p-6 shadow-sm">
+    <div className="border rounded-xl p-4 shadow-sm">
       <h1>Jahresübersicht {selectedYear}</h1>
       <ChartContainer config={chartConfig} className="h-70 md:h-120 w-full">
         <BarChart accessibilityLayer data={chartData}>
