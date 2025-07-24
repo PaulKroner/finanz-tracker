@@ -7,8 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table"
+import { BsThreeDots } from "react-icons/bs";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../../components/ui/popover"
+
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
+import DeleteButtonTable from "./DeleteButtonTable";
+import EditButtonTable from "./EditButtonTable";
+import { Button } from "../ui/button";
 
 type IncomeEntry = {
   id: number;
@@ -29,6 +39,7 @@ type ChartMonthProps = {
 const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
   const [latestEntries, setLatestEntries] = useState<any[]>([]);
+  const [open, setOpen] = useState(false) // State for closing Popover when Dialog is closed
 
   const { trigger } = useChartUpdate();
 
@@ -55,7 +66,7 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
   }, [selectedYear, selectedMonth, trigger]);
 
   return (
-    <div className="border rounded-xl p-6 shadow-sm w-full md:w-150">
+    <div className="border rounded-xl p-4 shadow-sm w-full md:w-150">
       <h2 className="text-lg font-semibold mb-4">Einnahmen</h2>
       <Table>
         <TableHeader>
@@ -63,6 +74,7 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
             <TableHead>Datum</TableHead>
             <TableHead>Was</TableHead>
             <TableHead>Betrag</TableHead>
+            <TableHead>Optionen</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -76,6 +88,25 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
                 <TableCell className="font-medium">{entry.title}</TableCell>
                 <TableCell className="font-medium">
                   {"+ "} {amount} €
+                </TableCell>
+                <TableCell className="flex justify-center">
+
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                        <Button>
+                          <BsThreeDots />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-20 flex flex-col items-center justify-center gap-2">
+                      <div className="flex items-center">
+                        <DeleteButtonTable onClosePopover={() => setOpen(false)} />
+                      </div>
+                      <div className="flex items-center">
+                        <EditButtonTable onClosePopover={() => setOpen(false)} />
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+
                 </TableCell>
               </TableRow>
             );
