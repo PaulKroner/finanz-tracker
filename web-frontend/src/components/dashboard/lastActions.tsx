@@ -22,7 +22,6 @@ const LastActions = () => {
 
   const [latestEntries, setLatestEntries] = useState<any[]>([]);
 
-
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {

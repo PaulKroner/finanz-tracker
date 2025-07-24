@@ -2,6 +2,7 @@ import { useState } from "react";
 import YearSelect from "../../components/ui/yearSelect";
 import MonthSelect from "../../components/ui/monthSelect";
 import DetailsSaldo from "../../components/details/DetailsSaldo";
+import DetailsLastIncome from "../../components/details/DetailsLastIncome";
 
 const DetailsPage = () => {
 
@@ -19,6 +20,8 @@ const DetailsPage = () => {
       />
 
       <DetailsSaldo selectedYear={selectedYear} selectedMonth={selectedMonth} />
+
+      <DetailsLastIncome selectedYear={selectedYear} selectedMonth={selectedMonth} />
 
     </div>
   );
