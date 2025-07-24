@@ -26,7 +26,7 @@ type ChartMonthProps = {
   selectedMonth: number;
 };
 
-const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
+const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
   const [latestEntries, setLatestEntries] = useState<any[]>([]);
 
@@ -35,16 +35,16 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const incomeRes = await Promise.all([
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${selectedYear}&month=${selectedMonth + 1}`),
+        const expenseRes = await Promise.all([
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}&month=${selectedMonth + 1}`),
         ]);
 
-        const incomeData = incomeRes[0].data.map((entry: any) => ({
+        const expenseData = expenseRes[0].data.map((entry: any) => ({
           ...entry,
-          type: "income",
+          type: "expense",
         }));
 
-        setLatestEntries(incomeData);
+        setLatestEntries(expenseData);
 
       } catch (error) {
         console.error("Error fetching last actions:", error);
@@ -56,7 +56,7 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
 
   return (
     <div className="border rounded-xl p-6 shadow-sm w-full md:w-150">
-      <h2 className="text-lg font-semibold mb-4">Einnahmen</h2>
+      <h2 className="text-lg font-semibold mb-4">Ausgaben</h2>
       <Table>
         <TableHeader>
           <TableRow>
@@ -71,7 +71,7 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
             const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
 
             return (
-              <TableRow key={index} className="bg-green-400">
+              <TableRow key={index} className="bg-red-400">
                 <TableCell className="font-medium">{formattedDate}</TableCell>
                 <TableCell className="font-medium">{entry.title}</TableCell>
                 <TableCell className="font-medium">
@@ -84,6 +84,6 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
       </Table>
     </div>
   );
-}
+};
 
-export default DetailsLastIncome;
+export default DetailsLastExpense;

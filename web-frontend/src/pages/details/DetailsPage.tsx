@@ -3,6 +3,7 @@ import YearSelect from "../../components/ui/yearSelect";
 import MonthSelect from "../../components/ui/monthSelect";
 import DetailsSaldo from "../../components/details/DetailsSaldo";
 import DetailsLastIncome from "../../components/details/DetailsLastIncome";
+import DetailsLastExpense from "../../components/details/DetailsLastExpense";
 
 const DetailsPage = () => {
 
@@ -23,6 +24,8 @@ const DetailsPage = () => {
 
       <DetailsLastIncome selectedYear={selectedYear} selectedMonth={selectedMonth} />
 
+      <DetailsLastExpense selectedYear={selectedYear} selectedMonth={selectedMonth} />
+      
     </div>
   );
 }
