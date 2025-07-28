@@ -15,7 +15,7 @@ const DeleteButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) =
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"destructive"} className="flex items-center justify-center gap-2 w-30">
+        <Button variant={"destructive"} className="flex items-center justify-center gap-2 w-40 h-13 md:w-30 md:h-9">
             <span>Löschen</span>
             <MdDelete className="size-6"/>
         </Button>
@@ -29,9 +29,9 @@ const DeleteButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) =
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" onClick={onClosePopover}>zurück</Button>
+            <Button className="h-13 md:h-9" variant="outline" onClick={onClosePopover}>zurück</Button>
           </DialogClose>
-          <Button variant="destructive" type="submit" onClick={onClosePopover}>Eintrag löschen</Button>
+          <Button className="h-13 md:h-9" variant="destructive" type="submit" onClick={onClosePopover}>Eintrag löschen</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

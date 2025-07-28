@@ -15,7 +15,7 @@ const EditButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) => 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex items-center justify-center gap-2 w-30">
+        <Button className="flex items-center justify-center gap-2 w-40 h-13 md:w-30 md:h-9">
           <span>Ändern</span>
           <MdEdit className="size-6"/>
         </Button>
@@ -29,9 +29,9 @@ const EditButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) => 
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" onClick={onClosePopover}>Cancel</Button>
+            <Button className="h-13 md:h-9" variant="outline" onClick={onClosePopover}>Cancel</Button>
           </DialogClose>
-          <Button type="submit" onClick={onClosePopover}>Save changes</Button>
+          <Button className="h-13 md:h-9" type="submit" onClick={onClosePopover}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
