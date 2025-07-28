@@ -11,8 +11,6 @@ import {
 
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
-import DeleteButtonTable from "./DeleteButtonTable";
-import EditButtonTable from "./EditButtonTable";
 
 import MobileDrawerOptions from "./mobile/MobileDrawerOptions";
 import DesktopDialogOptions from "./desktop/DesktopDialogOptions";
@@ -36,7 +34,7 @@ type ChartMonthProps = {
 const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
   const [latestEntries, setLatestEntries] = useState<any[]>([]);
-  
+
   const { trigger } = useChartUpdate();
 
   useEffect(() => {
