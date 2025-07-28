@@ -5,6 +5,7 @@ import Footer from './pages/footer/page'
 import { ChartUpdateProvider } from './context/ChartUpdateContext'
 import { Navigate, Route, Routes } from 'react-router'
 import DetailsPage from './pages/details/DetailsPage'
+import { Toaster } from 'sonner'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Navbar />
         </section>
       </ChartUpdateProvider>
+      <Toaster />
     </>
   )
 }
