@@ -9,8 +9,8 @@ import {
 } from "../../../components/ui/drawer"
 import { BsThreeDots } from "react-icons/bs";
 import { Button } from "../../ui/button";
-import DeleteButtonTable from "../DeleteButtonTable";
-import EditButtonTable from "../EditButtonTable";
+import DeleteButtonTable from "../buttons/DeleteButtonTable";
+import EditButtonTable from "../buttons/EditButtonTable";
 
 const MobileDrawerOptions = () => {
     const [open, setOpen] = useState(false) // State for closing Popover when Dialog is closed

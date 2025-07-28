@@ -5,8 +5,8 @@ import {
   PopoverTrigger,
 } from "../../../components/ui/popover"
 import { Button } from "../../ui/button";
-import DeleteButtonTable from "../DeleteButtonTable";
-import EditButtonTable from "../EditButtonTable";
+import DeleteButtonTable from "../buttons/DeleteButtonTable";
+import EditButtonTable from "../buttons/EditButtonTable";
 import { useState } from "react";
 
 const DesktopDialogOptions = () => {
