@@ -8,16 +8,39 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../components/ui/dialog"
-import { Button } from "../ui/button";
+} from "../../../components/ui/dialog"
+import { Button } from "../../ui/button";
+import { deleteEntry } from "../../../api/detailsAPI/DeleteEntry";
+import { useState } from "react";
 
-const DeleteButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) => {
+type DeleteButtonTableProps = {
+  id: number;
+  data: any[];
+  setData: (data: any[]) => void;
+  onClosePopover: () => void;
+};
+
+const DeleteButtonTable = ({
+  id,
+  data,
+  setData,
+  onClosePopover,
+}: DeleteButtonTableProps) => {
+
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = async () => {
+    await deleteEntry(id, data, setData,);
+    setOpen(false);
+    onClosePopover();
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant={"destructive"} className="flex items-center justify-center gap-2 w-40 h-13 md:w-30 md:h-9">
-            <span>Löschen</span>
-            <MdDelete className="size-6"/>
+          <span>Löschen</span>
+          <MdDelete className="size-6" />
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -31,8 +54,13 @@ const DeleteButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) =
           <DialogClose asChild>
             <Button className="h-13 md:h-9" variant="outline" onClick={onClosePopover}>zurück</Button>
           </DialogClose>
-          <Button className="h-13 md:h-9" variant="destructive" type="submit" onClick={onClosePopover}>Eintrag löschen</Button>
-        </DialogFooter>
+          <Button
+            className="h-13 md:h-9"
+            variant="destructive"
+            onClick={handleDelete}
+          >
+            Eintrag löschen
+          </Button>        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

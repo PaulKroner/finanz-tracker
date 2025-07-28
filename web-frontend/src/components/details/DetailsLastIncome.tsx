@@ -72,12 +72,13 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
           </TableRow>
         </TableHeader>
         <TableBody>
-          {latestEntries.map((entry, index) => {
-            const amount = parseFloat(entry.amount).toFixed(2);
+          {latestEntries.map((entry) => {
+            const amount = parseFloat(entry.amount.toString()).toFixed(2);
             const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
 
+
             return (
-              <TableRow key={index} className="bg-green-400">
+              <TableRow key={entry.id} className="bg-green-400">
                 <TableCell className="font-medium">{formattedDate}</TableCell>
                 <TableCell className="font-medium">{entry.title}</TableCell>
                 <TableCell className="font-medium">
@@ -87,13 +88,20 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
 
                   {/* desktop */}
                   <section className="hidden md:flex">
-                  <DesktopDialogOptions />
+                    <DesktopDialogOptions
+                      entry={entry}
+                      latestEntries={latestEntries}
+                      setLatestEntries={setLatestEntries}
+                    />
                   </section>
 
                   {/* mobile */}
                   <section className="md:hidden">
-                    <MobileDrawerOptions/>
-                  </section>
+                    <MobileDrawerOptions
+                      entry={entry}
+                      latestEntries={latestEntries}
+                      setLatestEntries={setLatestEntries}
+                    />                  </section>
 
 
                 </TableCell>
