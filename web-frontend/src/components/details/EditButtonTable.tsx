@@ -15,7 +15,8 @@ const EditButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) => 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="flex items-center justify-center gap-2 w-30">
+          <span>Ändern</span>
           <MdEdit className="size-6"/>
         </Button>
       </DialogTrigger>
