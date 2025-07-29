@@ -41,8 +41,12 @@ const MobileDrawerOptions = ({ entry, latestEntries, setLatestEntries }: MobileD
             onClosePopover={() => setOpen(false)} 
             />          </div>
           <div className="flex items-center justify-center">
-            <EditButtonTable onClosePopover={() => setOpen(false)} />
-          </div>
+          <EditButtonTable
+            entry={entry}
+            latestEntries={latestEntries}
+            setLatestEntries={setLatestEntries}
+            onClosePopover={() => setOpen(false)}
+          />          </div>
 
         </DrawerFooter>
       </DrawerContent>

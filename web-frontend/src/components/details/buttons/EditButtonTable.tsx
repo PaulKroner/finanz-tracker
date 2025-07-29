@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "../../../components/ui/dialog"
 import { Button } from "../../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../ui/input";
 import { cn } from "../../../lib/utils"
 import { Calendar } from "../../../components/ui/calendar"
@@ -26,7 +26,14 @@ import { format } from "date-fns";
 
 type Selection = "income" | "expense" | null;
 
-const EditButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) => {
+type EditButtonTableProps = {
+  entry: any;
+  latestEntries: any[];
+  setLatestEntries: (data: any[]) => void;
+  onClosePopover: () => void;
+};
+
+const EditButtonTable = ({ entry, latestEntries, setLatestEntries, onClosePopover }: EditButtonTableProps) => {
 
   const [date, setDate] = useState<Date>();
   const [selected, setSelected] = useState<Selection>(null);
@@ -37,6 +44,17 @@ const EditButtonTable = ({ onClosePopover }: { onClosePopover: () => void }) => 
   const categories = useCategories();
 
   // const { refresh } = useChartUpdate()
+
+  useEffect(() => {
+  if (entry) {
+    setTitle(entry.title);
+    setAmount(entry.amount.toString());
+    setCategoryId(entry.categoryId);
+    setDate(new Date(entry.date));
+    setSelected(entry.type); // Falls du zwischen "income"/"expense" unterscheidest
+  }
+}, [entry]);
+
 
   return (
     <Dialog>

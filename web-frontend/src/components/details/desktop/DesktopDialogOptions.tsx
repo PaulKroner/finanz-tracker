@@ -31,11 +31,16 @@ const DesktopDialogOptions = ({ entry, latestEntries, setLatestEntries }: Deskto
             id={entry.id}
             data={latestEntries}
             setData={setLatestEntries}
-            onClosePopover={() => setOpen(false)} 
-            />
+            onClosePopover={() => setOpen(false)}
+          />
         </div>
         <div className="flex items-center justify-center">
-          <EditButtonTable onClosePopover={() => setOpen(false)} />
+          <EditButtonTable
+            entry={entry}
+            latestEntries={latestEntries}
+            setLatestEntries={setLatestEntries}
+            onClosePopover={() => setOpen(false)}
+          />
         </div>
       </PopoverContent>
     </Popover>
