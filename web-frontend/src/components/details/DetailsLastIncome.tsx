@@ -14,14 +14,8 @@ import { useChartUpdate } from "../../context/ChartUpdateContext";
 
 import MobileDrawerOptions from "./mobile/MobileDrawerOptions";
 import DesktopDialogOptions from "./desktop/DesktopDialogOptions";
+import type { IncomeEntry } from "../../types/types";
 
-type IncomeEntry = {
-  id: number;
-  title: string;
-  amount: number;
-  categoryId: number;
-  date: string;
-};
 
 type ChartYearlProps = {
   selectedYear: number;
@@ -33,7 +27,7 @@ type ChartMonthProps = {
 
 const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
-  const [latestEntries, setLatestEntries] = useState<any[]>([]);
+  const [latestEntries, setLatestEntries] = useState<IncomeEntry[]>([]);
 
   const { trigger } = useChartUpdate();
 

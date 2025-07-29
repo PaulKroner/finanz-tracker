@@ -9,14 +9,8 @@ import {
 } from "../../components/ui/table"
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
+import type { ExpenseEntry } from "../../types/types";
 
-type IncomeEntry = {
-  id: number;
-  title: string;
-  amount: number;
-  categoryId: number;
-  date: string;
-};
 
 type ChartYearlProps = {
   selectedYear: number;
@@ -28,7 +22,7 @@ type ChartMonthProps = {
 
 const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
-  const [latestEntries, setLatestEntries] = useState<any[]>([]);
+  const [latestEntries, setLatestEntries] = useState<ExpenseEntry[]>([]);
 
   const { trigger } = useChartUpdate();
 
@@ -36,7 +30,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
     const fetchData = async () => {
       try {
         const expenseRes = await Promise.all([
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}&month=${selectedMonth + 1}`),
+          axios.get<ExpenseEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}&month=${selectedMonth + 1}`),
         ]);
 
         const expenseData = expenseRes[0].data.map((entry: any) => ({
@@ -67,7 +61,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
         </TableHeader>
         <TableBody>
           {latestEntries.map((entry, index) => {
-            const amount = parseFloat(entry.amount).toFixed(2);
+            const amount = parseFloat(entry.amount.toString()).toFixed(2);
             const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
 
             return (
