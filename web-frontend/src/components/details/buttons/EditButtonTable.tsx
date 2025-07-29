@@ -21,19 +21,19 @@ import {
 } from "../../../components/ui/popover"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { useCategories } from "../../../customHooks/dashboardHooks/useCategories";
-// import { useChartUpdate } from "../../../context/ChartUpdateContext";
 import { format } from "date-fns";
+import { updateEntry } from "../../../api/detailsAPI/UpdateEntry";
+import { toast } from "sonner";
 
 type Selection = "income" | "expense" | null;
 
 type EditButtonTableProps = {
   entry: any;
-  latestEntries: any[];
-  setLatestEntries: (data: any[]) => void;
+  setLatestEntries: React.Dispatch<React.SetStateAction<any[]>>;
   onClosePopover: () => void;
 };
 
-const EditButtonTable = ({ entry, latestEntries, setLatestEntries, onClosePopover }: EditButtonTableProps) => {
+const EditButtonTable = ({ entry, setLatestEntries, onClosePopover }: EditButtonTableProps) => {
 
   const [date, setDate] = useState<Date>();
   const [selected, setSelected] = useState<Selection>(null);
@@ -43,18 +43,47 @@ const EditButtonTable = ({ entry, latestEntries, setLatestEntries, onClosePopove
 
   const categories = useCategories();
 
-  // const { refresh } = useChartUpdate()
+  const handleUpdate = async () => {
+    // Check if all fields are filled
+    if (!title || !amount || !categoryId || !date) {
+      toast("Bitte alle Felder ausfüllen.");
+      return;
+    }
 
+    // funzt erstmal nur für income
+    try {
+      const updatedData = {
+        title,
+        amount: parseFloat(amount),
+        categoryId,
+        date: date.toISOString(),
+      };
+
+      const updatedEntry = await updateEntry(entry.id, updatedData);
+
+      // Liste lokal aktualisieren
+      setLatestEntries((prev: any[]) =>
+        prev.map((e) => e.id === entry.id ? { ...e, ...updatedEntry } : e)
+      );
+
+      toast.success("Eintrag erfolgreich aktualisiert!");
+      onClosePopover(); // Popover schließen
+    } catch (error) {
+      toast.error("Fehler beim Speichern.");
+      console.error(error);
+    }
+  };
+
+  // sets the inital values for the dialog
   useEffect(() => {
-  if (entry) {
-    setTitle(entry.title);
-    setAmount(entry.amount.toString());
-    setCategoryId(entry.categoryId);
-    setDate(new Date(entry.date));
-    setSelected(entry.type); // Falls du zwischen "income"/"expense" unterscheidest
-  }
-}, [entry]);
-
+    if (entry) {
+      setTitle(entry.title);
+      setAmount(entry.amount.toString());
+      setCategoryId(entry.categoryId);
+      setDate(new Date(entry.date));
+      setSelected(entry.type); // Falls du zwischen "income"/"expense" unterscheidest
+    }
+  }, [entry]);
 
   return (
     <Dialog>
@@ -158,9 +187,9 @@ const EditButtonTable = ({ entry, latestEntries, setLatestEntries, onClosePopove
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button className="h-13 md:h-9" variant="outline" onClick={onClosePopover}>Cancel</Button>
+            <Button className="h-13 md:h-9" variant="outline" onClick={onClosePopover}>zurück</Button>
           </DialogClose>
-          <Button className="h-13 md:h-9" type="submit" onClick={onClosePopover}>Save changes</Button>
+          <Button className="h-13 md:h-9" type="submit" onClick={handleUpdate}>Änderungen speichern</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
