@@ -23,6 +23,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
 import { useCategories } from "../../customHooks/dashboardHooks/useCategories";
+import { toast } from "sonner";
 
 type Selection = "income" | "expense" | null;
 
@@ -59,7 +60,7 @@ const AddIncomeExpenseButton = () => {
         },
       });
 
-      alert("Erfolgreich hinzugefügt!");
+      toast.success("Erfolgreich hinzugefügt!");
 
       // Reset form
       setSelected(null);
@@ -70,7 +71,7 @@ const AddIncomeExpenseButton = () => {
       refresh(); // Trigger chart update
     } catch (error) {
       console.error("Fehler beim Senden:", error);
-      alert("Fehler beim Hinzufügen des Eintrags.");
+      toast.error("Fehler beim Hinzufügen. Bitte versuche es erneut.");
     }
   };
 
