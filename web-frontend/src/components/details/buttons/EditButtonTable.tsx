@@ -29,11 +29,11 @@ type Selection = "income" | "expense" | null;
 
 type EditButtonTableProps = {
   entry: any;
-  setLatestEntries: React.Dispatch<React.SetStateAction<any[]>>;
+  setEntries: React.Dispatch<React.SetStateAction<any[]>>;
   onClosePopover: () => void;
 };
 
-const EditButtonTable = ({ entry, setLatestEntries, onClosePopover }: EditButtonTableProps) => {
+const EditButtonTable = ({ entry, setEntries, onClosePopover }: EditButtonTableProps) => {
 
   const [date, setDate] = useState<Date>();
   const [selected, setSelected] = useState<Selection>(null);
@@ -63,7 +63,7 @@ const EditButtonTable = ({ entry, setLatestEntries, onClosePopover }: EditButton
       const updatedEntry = await updateEntry(entry.id, updatedData);
 
       // Liste lokal aktualisieren
-      setLatestEntries((prev: any[]) =>
+      setEntries((prev: any[]) =>
         prev.map((e) => e.id === entry.id ? { ...e, ...updatedEntry } : e)
       );
 

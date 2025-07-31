@@ -24,7 +24,7 @@ type ChartMonthProps = {
 
 const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
 
-  const [latestEntries, setLatestEntries] = useState<ExpenseEntry[]>([]);
+  const [entries, setEntries] = useState<ExpenseEntry[]>([]);
 
   const { trigger } = useChartUpdate();
 
@@ -40,7 +40,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
           type: "expense",
         }));
 
-        setLatestEntries(expenseData);
+        setEntries(expenseData);
 
       } catch (error) {
         console.error("Error fetching last actions:", error);
@@ -63,7 +63,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
           </TableRow>
         </TableHeader>
         <TableBody>
-          {latestEntries.map((entry, index) => {
+          {entries.map((entry, index) => {
             const amount = parseFloat(entry.amount.toString()).toFixed(2);
             const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
 
@@ -80,8 +80,8 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
                   <section className="hidden md:flex">
                     <DesktopDialogOptions
                       entry={entry}
-                      latestEntries={latestEntries}
-                      setLatestEntries={setLatestEntries}
+                      entries={entries}
+                      setEntries={setEntries}
                     />
                   </section>
 
@@ -89,8 +89,8 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
                   <section className="md:hidden">
                     <MobileDrawerOptions
                       entry={entry}
-                      latestEntries={latestEntries}
-                      setLatestEntries={setLatestEntries}
+                      entries={entries}
+                      setEntries={setEntries}
                     />
                   </section>
 

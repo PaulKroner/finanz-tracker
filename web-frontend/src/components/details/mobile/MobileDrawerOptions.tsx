@@ -14,11 +14,11 @@ import EditButtonTable from "../buttons/EditButtonTable";
 
 type MobileDrawerOptions = {
   entry: { id: number },
-  latestEntries: any,
-  setLatestEntries: (data: any) => void,
+  entries: any,
+  setEntries: (data: any) => void,
 };
 
-const MobileDrawerOptions = ({ entry, latestEntries, setLatestEntries }: MobileDrawerOptions) => {
+const MobileDrawerOptions = ({ entry, entries, setEntries }: MobileDrawerOptions) => {
   const [open, setOpen] = useState(false) // State for closing Popover when Dialog is closed
 
   return (
@@ -35,17 +35,17 @@ const MobileDrawerOptions = ({ entry, latestEntries, setLatestEntries }: MobileD
         <DrawerFooter className="mb-10 gap-4">
           <div className="flex items-center justify-center">
             <DeleteButtonTable
-            id={entry.id}
-            data={latestEntries}
-            setData={setLatestEntries}
-            onClosePopover={() => setOpen(false)} 
+              entry={entry}
+              setEntries={setEntries}
+              onClosePopover={() => setOpen(false)}
             />          </div>
           <div className="flex items-center justify-center">
-          <EditButtonTable
-            entry={entry}
-            setLatestEntries={setLatestEntries}
-            onClosePopover={() => setOpen(false)}
-          />          </div>
+            <EditButtonTable
+              entry={entry}
+              setEntries={setEntries}
+              onClosePopover={() => setOpen(false)}
+            />
+          </div>
 
         </DrawerFooter>
       </DrawerContent>

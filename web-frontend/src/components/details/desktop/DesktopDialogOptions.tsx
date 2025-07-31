@@ -11,11 +11,11 @@ import { useState } from "react";
 
 type DesktopDialogOptionsProps = {
   entry: { id: number },
-  latestEntries: any,
-  setLatestEntries: (data: any) => void,
+  entries: any,
+  setEntries: (data: any) => void,
 };
 
-const DesktopDialogOptions = ({ entry, latestEntries, setLatestEntries }: DesktopDialogOptionsProps) => {
+const DesktopDialogOptions = ({ entry, entries, setEntries }: DesktopDialogOptionsProps) => {
   const [open, setOpen] = useState(false) // State for closing Popover when Dialog is closed
 
   return (
@@ -28,16 +28,15 @@ const DesktopDialogOptions = ({ entry, latestEntries, setLatestEntries }: Deskto
       <PopoverContent className="w-38 flex flex-col items-center justify-center gap-2 p-4">
         <div className="flex items-center justify-center">
           <DeleteButtonTable
-            id={entry.id}
-            data={latestEntries}
-            setData={setLatestEntries}
+            entry={entry}
+            setEntries={setEntries}
             onClosePopover={() => setOpen(false)}
           />
         </div>
         <div className="flex items-center justify-center">
           <EditButtonTable
             entry={entry}
-            setLatestEntries={setLatestEntries}
+            setEntries={setEntries}
             onClosePopover={() => setOpen(false)}
           />
         </div>

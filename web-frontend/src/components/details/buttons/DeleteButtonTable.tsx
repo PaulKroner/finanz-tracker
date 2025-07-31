@@ -14,24 +14,22 @@ import { deleteEntry } from "../../../api/detailsAPI/DeleteEntry";
 import { useState } from "react";
 
 type DeleteButtonTableProps = {
-  id: number;
-  data: any[];
-  setData: (data: any[]) => void;
+  entry: any;
+  setEntries: (data: any[]) => void;
   onClosePopover: () => void;
 };
 
 const DeleteButtonTable = ({
-  id,
-  data,
-  setData,
+  entry,
+  setEntries,
   onClosePopover,
 }: DeleteButtonTableProps) => {
 
   const [open, setOpen] = useState(false);
 
   const handleDelete = async () => {
-    await deleteEntry(id, data, setData,);
-    setOpen(false);
+    await deleteEntry(entry, setEntries);
+    // setOpen(false);
     onClosePopover();
   };
 
