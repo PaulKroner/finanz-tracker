@@ -10,6 +10,8 @@ import {
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
 import type { ExpenseEntry } from "../../types/types";
+import DesktopDialogOptions from "./desktop/DesktopDialogOptions";
+import MobileDrawerOptions from "./mobile/MobileDrawerOptions";
 
 
 type ChartYearlProps = {
@@ -57,6 +59,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
             <TableHead>Datum</TableHead>
             <TableHead>Was</TableHead>
             <TableHead>Betrag</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -70,6 +73,27 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
                 <TableCell className="font-medium">{entry.title}</TableCell>
                 <TableCell className="font-medium">
                   {"+ "} {amount} €
+                </TableCell>
+                <TableCell className="flex justify-center">
+
+                  {/* desktop */}
+                  <section className="hidden md:flex">
+                    <DesktopDialogOptions
+                      entry={entry}
+                      latestEntries={latestEntries}
+                      setLatestEntries={setLatestEntries}
+                    />
+                  </section>
+
+                  {/* mobile */}
+                  <section className="md:hidden">
+                    <MobileDrawerOptions
+                      entry={entry}
+                      latestEntries={latestEntries}
+                      setLatestEntries={setLatestEntries}
+                    />
+                  </section>
+
                 </TableCell>
               </TableRow>
             );

@@ -57,6 +57,7 @@ const EditButtonTable = ({ entry, setLatestEntries, onClosePopover }: EditButton
         amount: parseFloat(amount),
         categoryId,
         date: date.toISOString(),
+        selected,
       };
 
       const updatedEntry = await updateEntry(entry.id, updatedData);
@@ -99,7 +100,7 @@ const EditButtonTable = ({ entry, setLatestEntries, onClosePopover }: EditButton
           <DialogDescription>
             Hier kannst du Änderungen vornehmen. Klicke auf Speichern, wenn du fertig bist.
           </DialogDescription>
-          <div className="flex flex-row justify-center gap-4">
+          {/* <div className="flex flex-row justify-center gap-4">
             <Button
               variant={selected === "income" ? "default" : "outline"}
               onClick={() => setSelected("income")}
@@ -114,7 +115,7 @@ const EditButtonTable = ({ entry, setLatestEntries, onClosePopover }: EditButton
             >
               Ausgabe
             </Button>
-          </div>
+          </div> */}
 
           <div className="flex flex-col justify-center items-center gap-2">
             {/* Zeile 1 */}

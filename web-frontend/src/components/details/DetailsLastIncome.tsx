@@ -95,8 +95,8 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
                       entry={entry}
                       latestEntries={latestEntries}
                       setLatestEntries={setLatestEntries}
-                    />                  </section>
-
+                    />
+                  </section>
 
                 </TableCell>
               </TableRow>

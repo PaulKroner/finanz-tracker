@@ -4,7 +4,7 @@ import { toast } from "sonner";
 export const updateEntry = async ( id:number, updatedEntry: any) => {
   // setLoading(true);
   try {
-    const response = await axios.put(`http://localhost:5062/api/income/${id}`, updatedEntry, {
+    const response = await axios.put(`http://localhost:5062/api/${updatedEntry.selected}/${id}`, updatedEntry, {
       headers: {
         'Content-Type': 'application/json',
       },
