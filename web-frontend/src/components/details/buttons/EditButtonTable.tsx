@@ -89,7 +89,7 @@ const EditButtonTable = ({ entry, setEntries, onClosePopover }: EditButtonTableP
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex items-center justify-center gap-2 w-40 h-13 md:w-30 md:h-9">
+        <Button className="flex items-center justify-center gap-2 w-70 h-13 md:w-30 md:h-9">
           <span>Ändern</span>
           <MdEdit className="size-6" />
         </Button>
@@ -100,22 +100,6 @@ const EditButtonTable = ({ entry, setEntries, onClosePopover }: EditButtonTableP
           <DialogDescription>
             Hier kannst du Änderungen vornehmen. Klicke auf Speichern, wenn du fertig bist.
           </DialogDescription>
-          {/* <div className="flex flex-row justify-center gap-4">
-            <Button
-              variant={selected === "income" ? "default" : "outline"}
-              onClick={() => setSelected("income")}
-              className="w-26"
-            >
-              Einnahme
-            </Button>
-            <Button
-              variant={selected === "expense" ? "default" : "outline"}
-              onClick={() => setSelected("expense")}
-              className="w-26"
-            >
-              Ausgabe
-            </Button>
-          </div> */}
 
           <div className="flex flex-col justify-center items-center gap-2">
             {/* Zeile 1 */}

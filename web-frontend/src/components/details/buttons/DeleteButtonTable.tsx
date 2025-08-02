@@ -36,7 +36,7 @@ const DeleteButtonTable = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"destructive"} className="flex items-center justify-center gap-2 w-40 h-13 md:w-30 md:h-9">
+        <Button variant={"destructive"} className="flex items-center justify-center gap-2 w-70 h-13 md:w-30 md:h-9">
           <span>Löschen</span>
           <MdDelete className="size-6" />
         </Button>

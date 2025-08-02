@@ -78,8 +78,8 @@ const AddIncomeExpenseButton = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="flex flex-col h-12 p-4">
-          <IoIosAddCircleOutline />
+        <Button className="flex flex-col h-15 w-15 p-4">
+          <IoIosAddCircleOutline className="size-10" />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -177,12 +177,12 @@ const AddIncomeExpenseButton = () => {
         </DrawerHeader>
         <DrawerFooter className="items-center">
 
-          <Button className="w-48" onClick={handleSubmit}>
+          <Button className="w-48 h-13 md:h-9" onClick={handleSubmit}>
             Hinzufügen
           </Button>
 
           <DrawerClose asChild>
-            <Button variant="outline" className="w-48">Abbrechen</Button>
+            <Button variant="outline" className="w-48 h-13 md:h-9">Abbrechen</Button>
           </DrawerClose>
 
         </DrawerFooter>
