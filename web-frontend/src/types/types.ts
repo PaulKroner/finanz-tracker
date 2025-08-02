@@ -23,3 +23,8 @@ export interface ExpenseEntry {
   };
   type?: "expense";
 }
+
+export interface CategorySummary {
+  category: string;
+  totalAmount: number;
+}
