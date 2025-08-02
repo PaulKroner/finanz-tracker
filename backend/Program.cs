@@ -4,6 +4,7 @@ using backend.Data;
 using backend.Interfaces;
 using backend.Models;
 using backend.Repository;
+using backend.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -50,7 +51,6 @@ if (app.Environment.IsDevelopment())
 
 // Routing aktivieren
 app.MapControllers();
-
-// app.MapGet("/", () => "Hello World!");
+app.MapExpenseEndpoints();
 
 app.Run();
