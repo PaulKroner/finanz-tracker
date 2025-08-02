@@ -6,6 +6,7 @@ import { ChartUpdateProvider } from './context/ChartUpdateContext'
 import { Navigate, Route, Routes } from 'react-router'
 import DetailsPage from './pages/details/DetailsPage'
 import { Toaster } from 'sonner'
+import CustomizationPage from './pages/customization/CustomizationPage'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/details" element={<DetailsPage />} />
+            <Route path="/customization" element={<CustomizationPage />} />
 
             {/* Catch all unknown routes and redirect to NotFoundPage */}
             <Route path="*" element={<Navigate to="/not-found" replace />} />
