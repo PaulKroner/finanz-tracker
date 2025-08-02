@@ -78,8 +78,9 @@ const AddIncomeExpenseButton = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="flex flex-col h-15 w-15 p-4">
-          <IoIosAddCircleOutline className="size-10" />
+        <Button className="flex flex-col h-15 w-15 p-4" variant="ghost">
+          <IoIosAddCircleOutline className="size-12" strokeWidth="5"/>
+          <div></div>
         </Button>
       </DrawerTrigger>
       <DrawerContent>
