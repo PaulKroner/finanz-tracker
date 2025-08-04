@@ -4,7 +4,6 @@ import { toast } from "sonner";
 export const deleteEntry = async (entry: any, setEntries: (arg0: any) => void, callback?: () => void) => {
 
   const { id, type } = entry;
-  console.log("Deleting entry with ID:", id, "and type:", type);
 
   try {
     await axios.delete(`http://localhost:5062/api/${type}/${id}`, {

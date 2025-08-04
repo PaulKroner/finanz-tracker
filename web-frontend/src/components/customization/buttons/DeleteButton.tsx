@@ -10,22 +10,22 @@ import {
   DialogTrigger,
 } from "../../../components/ui/dialog"
 import { Button } from "../../ui/button";
-import { deleteEntry } from "../../../api/detailsAPI/DeleteEntry";
+import { deleteCategory } from "../../../api/customization/DeleteCategory";
 
 type DeleteButtonTableProps = {
-  entry: any;
-  setEntries: (data: any[]) => void;
+  category: any;
+  setCategories: (data: any[]) => void;
   onClosePopover: () => void;
 };
 
-const DeleteButtonTable = ({
-  entry,
-  setEntries,
+const DeleteButton = ({
+  category,
+  setCategories,
   onClosePopover,
 }: DeleteButtonTableProps) => {
 
   const handleDelete = async () => {
-    await deleteEntry(entry, setEntries);
+    await deleteCategory(category, setCategories);
     onClosePopover();
   };
 
@@ -60,4 +60,4 @@ const DeleteButtonTable = ({
   );
 }
 
-export default DeleteButtonTable;
+export default DeleteButton;
