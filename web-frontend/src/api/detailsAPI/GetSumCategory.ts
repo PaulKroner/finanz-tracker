@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { CategorySummary } from "../../types/types";
+import { toast } from "sonner";
 
 export const getSumCategory = async (selectedYear: number, selectedMonth: number, setCategorySummary: React.Dispatch<React.SetStateAction<CategorySummary[]>>) => {
 
@@ -15,6 +16,6 @@ export const getSumCategory = async (selectedYear: number, selectedMonth: number
     );
     setCategorySummary(response.data);
   } catch (err) {
-    console.error("Fehler beim Laden der Daten:", err);
+    toast.error("Fehler beim Laden der Kategoriedaten.");
   }
 };

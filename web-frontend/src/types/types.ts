@@ -24,6 +24,11 @@ export interface ExpenseEntry {
   type?: "expense";
 }
 
+export interface Category {
+  id: number;
+  title: string;
+}
+
 export interface CategorySummary {
   category: string;
   totalAmount: number;

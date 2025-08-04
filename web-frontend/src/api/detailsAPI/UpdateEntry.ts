@@ -12,10 +12,6 @@ export const updateEntry = async ( id:number, updatedEntry: any) => {
     });
 
     if (response.status === 200) {
-      // function to update the table without refreshing the page
-      // const updatedData = await getData();
-      // setData(updatedData);
-      // setLastEntries(response);
       toast.success("Eintrag erfolgreich aktualisiert!");
     }
     return response.data;
