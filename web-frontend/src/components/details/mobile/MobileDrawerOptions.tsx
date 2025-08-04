@@ -18,7 +18,7 @@ type MobileDrawerOptions = {
   setEntries: (data: any) => void,
 };
 
-const MobileDrawerOptions = ({ entry, entries, setEntries }: MobileDrawerOptions) => {
+const MobileDrawerOptions = ({ entry, setEntries }: MobileDrawerOptions) => {
   const [open, setOpen] = useState(false) // State for closing Popover when Dialog is closed
 
   return (
