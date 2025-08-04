@@ -11,6 +11,7 @@ import { getAllCategories } from "../../api/customization/GetAllCategories";
 import type { Category } from "../../types/types";
 import DesktopCategoryOptions from "./desktop/DesktopCategoryOptions";
 import MobileCategoryOptions from "./mobile/MobileCategoryOptions";
+import AddCategoryButton from "./buttons/AddCategoryButton";
 
 const CategoryList = () => {
 
@@ -53,6 +54,11 @@ const CategoryList = () => {
           ))}
         </TableBody>
       </Table>
+
+      <div className="flex justify-center mt-4">
+          <AddCategoryButton />
+      </div>
+
     </div>
   );
 }
