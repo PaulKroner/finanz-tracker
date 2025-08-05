@@ -7,10 +7,12 @@ using backend.Dtos.Expense;
 using backend.Interfaces;
 using backend.Mappers;
 using dotnetTutorial.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+  [Authorize]
   [Route("api/expense")]
   [ApiController]
   public class ExpenseController : ControllerBase

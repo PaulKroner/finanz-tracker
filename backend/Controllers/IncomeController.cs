@@ -7,10 +7,12 @@ using backend.Dtos.Income;
 using backend.Interfaces;
 using backend.Mappers;
 using dotnetTutorial.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+  [Authorize]
   [Route("api/income")]
   [ApiController]
   public class IncomeController : ControllerBase

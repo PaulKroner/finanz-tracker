@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using backend.Models;
 using backend.Data;
-
 namespace backend.Endpoints;
 
 public static class ExpenseEndpoints
@@ -14,14 +12,16 @@ public static class ExpenseEndpoints
               .Where(e => e.Date.Year == year && e.Date.Month == month)
               .GroupBy(e => e.Category!.Title)
               .Select(g => new
-            {
-              Category = g.Key,
-              TotalAmount = g.Sum(e => e.Amount)
-            })
+              {
+                Category = g.Key,
+                TotalAmount = g.Sum(e => e.Amount)
+              })
               .ToListAsync();
 
       return Results.Ok(summary);
-    }).WithTags("Expense"); // Endpoint to get category summary for expenses for swagger
+    })
+    .RequireAuthorization()
+    .WithTags("Expense"); // Endpoint to get category summary for expenses for swagger
   }
 }
 
