@@ -70,7 +70,6 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {/* <SubmitButton text={"einloggen"} loading={loading} /> */}
           <Button type="submit">einloggen</Button>
         </form>
       </div>

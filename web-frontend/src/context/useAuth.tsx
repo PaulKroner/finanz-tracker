@@ -37,7 +37,7 @@ export const UserProvider = ({ children }: Props) => {
   }, []);
 
   const loginUser = async (username: string, password: string) => {
-    await loginAPI(username, password, navigate)
+    await loginAPI(username, password)
       .then((res) => {
         if (res) {
 
@@ -51,6 +51,9 @@ export const UserProvider = ({ children }: Props) => {
           setUser(userObj!);
 
           axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+          if (localStorage.getItem('token')) {
+            navigate("/dashboard");
+          }
         }
       })
       .catch((e) => toast.error("Fehler in useAuth.tsx: " + e.message));

@@ -10,6 +10,7 @@ import { UserProvider } from './context/useAuth'
 import LoginPage from './pages/login/LoginPage'
 import PrivateRoute from './context/PrivateRoute'
 import Navbar from './components/navbar/page'
+import AppRoutes from './AppRoutes'
 
 const AppContent = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const AppContent = () => {
       <main className="w-full flex flex-col min-h-screen px-4 md:px-20 pt-4">
 
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/dashboard"
@@ -65,16 +66,13 @@ const AppContent = () => {
 };
 
 function App() {
-
   return (
-    <>
-      <UserProvider>
-        <ChartUpdateProvider>
-          <AppContent />
-        </ChartUpdateProvider>
+    <UserProvider>
+      <ChartUpdateProvider>
+        <AppRoutes />
         <Toaster />
-      </UserProvider>
-    </>
+      </ChartUpdateProvider>
+    </UserProvider>
   )
 }
 
