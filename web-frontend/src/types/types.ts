@@ -33,3 +33,14 @@ export interface CategorySummary {
   category: string;
   totalAmount: number;
 }
+
+export type UserProfileToken = {
+  userName: string;
+  email: string;
+  token: string;
+}
+
+export type UserProfile = {
+  userName: string;
+  email: string;
+}

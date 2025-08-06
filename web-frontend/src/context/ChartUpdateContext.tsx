@@ -1,4 +1,3 @@
-// context/ChartUpdateContext.tsx
 import { createContext, useContext, useState } from "react";
 
 type ChartUpdateContextType = {
