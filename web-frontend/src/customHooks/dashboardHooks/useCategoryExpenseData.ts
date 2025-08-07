@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
+import { useAuth } from "../../context/useAuth";
 
 type ExpenseEntry = {
   id: number;
@@ -31,13 +32,21 @@ const categoryColors: Record<number, string> = {
 export const useCategoryExpenseData = (selectedYear: number) => {
   const [chartData, setChartData] = useState<CategoryChartData[]>([]);
   const { trigger } = useChartUpdate();
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       try {
         const [expenseRes, categoriesRes] = await Promise.all([
-          axios.get<ExpenseEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}`),
-          axios.get<Category[]>(`http://localhost:5062/api/category`)
+          axios.get<ExpenseEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}`, config),
+          axios.get<Category[]>(`http://localhost:5062/api/category`, config)
         ]);
 
         const categoriesMap = new Map<number, { name: string; color: string }>();
@@ -74,8 +83,10 @@ export const useCategoryExpenseData = (selectedYear: number) => {
       }
     };
 
-    fetchData();
-  }, [selectedYear, trigger]);
+    if (token) {
+      fetchData();
+    }
+  }, [selectedYear, trigger, token]);
 
   return chartData;
 };

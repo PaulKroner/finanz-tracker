@@ -1,12 +1,13 @@
 import axios from "axios";
 import { toast } from "sonner";
 
-export const updateEntry = async ( id:number, updatedEntry: any) => {
+export const updateEntry = async ( id:number, updatedEntry: any, token: string| null ) => {
   // setLoading(true);
   try {
     const response = await axios.put(`http://localhost:5062/api/${updatedEntry.selected}/${id}`, updatedEntry, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       params: { id },
     });

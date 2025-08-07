@@ -11,6 +11,7 @@ import {
 } from "../../components/ui/table"
 import { getSumCategory } from "../../api/detailsAPI/GetSumCategory";
 import { toast } from "sonner";
+import { useAuth } from "../../context/useAuth";
 
 type DetailsCategoryOverviewProps = {
   selectedYear: number;
@@ -19,15 +20,16 @@ type DetailsCategoryOverviewProps = {
 
 const DetailsCategoryOverview = ({ selectedYear, selectedMonth }: DetailsCategoryOverviewProps) => {
   const [categorySummary, setCategorySummary] = useState<CategorySummary[]>([]);
+  const { token } = useAuth();
 
   useEffect(() => {
     try {
-      getSumCategory(selectedYear, selectedMonth, setCategorySummary);
+      getSumCategory(selectedYear, selectedMonth, setCategorySummary, token);
     }
     catch (err) {
       toast.error("Fehler beim Laden der Kategoriedaten.");
     }
-  }, [selectedYear, selectedMonth]);
+  }, [selectedYear, selectedMonth, token]);
 
 
   return (

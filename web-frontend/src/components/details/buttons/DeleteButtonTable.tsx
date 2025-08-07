@@ -11,6 +11,7 @@ import {
 } from "../../../components/ui/dialog"
 import { Button } from "../../ui/button";
 import { deleteEntry } from "../../../api/detailsAPI/DeleteEntry";
+import { useAuth } from "../../../context/useAuth";
 
 type DeleteButtonTableProps = {
   entry: any;
@@ -24,8 +25,10 @@ const DeleteButtonTable = ({
   onClosePopover,
 }: DeleteButtonTableProps) => {
 
+  const { token } = useAuth();
+
   const handleDelete = async () => {
-    await deleteEntry(entry, setEntries);
+    await deleteEntry(entry, setEntries, token);
     onClosePopover();
   };
 

@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table"
+import { useAuth } from "../../context/useAuth";
 
 
 type IncomeEntry = {
@@ -23,13 +24,21 @@ const LastActions = () => {
   const [latestEntries, setLatestEntries] = useState<any[]>([]);
 
   const currentYear = new Date().getFullYear();
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
         const [incomeRes, expensesRes] = await Promise.all([
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${currentYear}`),
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${currentYear}`)
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${currentYear}`, config),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${currentYear}`, config)
         ]);
 
         const incomeData = incomeRes.data.map((entry: any) => ({
@@ -54,8 +63,10 @@ const LastActions = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (token) {
+      fetchData();
+    }
+  }, [token]);
 
   return (
     <>

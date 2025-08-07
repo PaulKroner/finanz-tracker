@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
+import { useAuth } from "../../context/useAuth";
 
 const months = [
   "Januar", "Februar", "März", "April", "Mai", "Juni",
@@ -21,13 +22,21 @@ export const useYearlyFinanceData = (selectedYear: number) => {
   );
 
   const { trigger } = useChartUpdate();
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
         const [incomeRes, expenseRes] = await Promise.all([
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${selectedYear}`),
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}`),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${selectedYear}`, config),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}`, config),
         ]);
 
         const data = months.map((month) => ({
@@ -56,8 +65,10 @@ export const useYearlyFinanceData = (selectedYear: number) => {
       }
     };
 
-    fetchData();
-  }, [selectedYear, trigger]);
+    if (token) {
+      fetchData();
+    }
+  }, [selectedYear, trigger, token]);
 
   return chartData;
 };

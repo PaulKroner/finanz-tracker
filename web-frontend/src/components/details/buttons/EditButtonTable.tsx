@@ -24,6 +24,7 @@ import { useCategories } from "../../../customHooks/dashboardHooks/useCategories
 import { format } from "date-fns";
 import { updateEntry } from "../../../api/detailsAPI/UpdateEntry";
 import { toast } from "sonner";
+import { useAuth } from "../../../context/useAuth";
 
 type Selection = "income" | "expense" | null;
 
@@ -42,6 +43,7 @@ const EditButtonTable = ({ entry, setEntries, onClosePopover }: EditButtonTableP
   const [categoryId, setCategoryId] = useState<number | null>(null);
 
   const categories = useCategories();
+  const { token } = useAuth();
 
   const handleUpdate = async () => {
     // Check if all fields are filled
@@ -60,7 +62,7 @@ const EditButtonTable = ({ entry, setEntries, onClosePopover }: EditButtonTableP
         selected,
       };
 
-      const updatedEntry = await updateEntry(entry.id, updatedData);
+      const updatedEntry = await updateEntry(entry.id, updatedData, token);
 
       // Liste lokal aktualisieren
       setEntries((prev: any[]) =>

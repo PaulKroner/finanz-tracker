@@ -15,6 +15,7 @@ import { useChartUpdate } from "../../context/ChartUpdateContext";
 import MobileDrawerOptions from "./mobile/MobileDrawerOptions";
 import DesktopDialogOptions from "./desktop/DesktopDialogOptions";
 import type { IncomeEntry } from "../../types/types";
+import { useAuth } from "../../context/useAuth";
 
 
 type ChartYearlProps = {
@@ -30,12 +31,20 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
   const [entries, setEntries] = useState<IncomeEntry[]>([]);
 
   const { trigger } = useChartUpdate();
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       try {
         const incomeRes = await Promise.all([
-          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${selectedYear}&month=${selectedMonth + 1}`),
+          axios.get<IncomeEntry[]>(`http://localhost:5062/api/income?year=${selectedYear}&month=${selectedMonth + 1}`, config),
         ]);
 
         const incomeData = incomeRes[0].data.map((entry: any) => ({
@@ -50,8 +59,10 @@ const DetailsLastIncome = ({ selectedYear, selectedMonth }: ChartYearlProps & Ch
       }
     };
 
-    fetchData();
-  }, [selectedYear, selectedMonth, trigger]);
+    if (token) {
+      fetchData();
+    }
+  }, [selectedYear, selectedMonth, trigger, token]);
 
   return (
     <div className="border rounded-xl p-4 shadow-sm w-full md:w-150">

@@ -1,13 +1,16 @@
 import axios from "axios";
 import { toast } from "sonner";
 
-export const deleteEntry = async (entry: any, setEntries: (arg0: any) => void, callback?: () => void) => {
+export const deleteEntry = async (entry: any, setEntries: (arg0: any) => void, token: string | null, callback?: () => void) => {
 
   const { id, type } = entry;
 
   try {
     await axios.delete(`http://localhost:5062/api/${type}/${id}`, {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, 
+      }
     });
 
     setEntries((prev: any[]) => prev.filter((e) => e.id !== id));
