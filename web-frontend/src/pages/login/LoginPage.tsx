@@ -20,9 +20,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center p-16 bg-ec '>
-      <div className="bg-white h-full rounded-2xl p-12 login-container">
-        <form onSubmit={handleLogin} className="flex flex-col justify-center items-center gap-6">
+    <div className='flex min-h-screen flex-col items-center justify-center p-4 md:p-16 bg-slate-800 '>
+      <div className="bg-white h-full rounded-2xl p-10 login-container border shadow-md/80 shadow-white">
+        <form onSubmit={handleLogin} className="flex flex-col justify-center items-center gap-4">
 
           <div className="flex gap-4 flex-col items-center">
             <div className="flex justify-center items-center font-extrabold text-2xl text-center">
@@ -42,7 +42,7 @@ const LoginPage = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="block w-64 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                className="block w-64 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 h-13 md:h-10"
                 aria-label="Username"
                 autoComplete="Username"
                 required
@@ -62,7 +62,7 @@ const LoginPage = () => {
                 placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-64 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                className="block w-64 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 h-13 md:h-10"
                 aria-label="Password"
                 autoComplete="password"
                 required
@@ -70,7 +70,7 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <Button type="submit">einloggen</Button>
+          <Button type="submit" className="w-full h-13 md:h-10 mt-5">einloggen</Button>
         </form>
       </div>
     </div>
