@@ -26,9 +26,11 @@ namespace backend.Repository
       return incomeModel;
     }
 
-    public async Task<Income?> DeleteAsync(int id)
+    public async Task<Income?> DeleteAsync(int id, string email)
     {
-      var incomeModel = await _context.Incomes.FirstOrDefaultAsync(x => x.Id == id);
+      var incomeModel = await _context.Incomes
+             .Include(i => i.AppUser)
+             .FirstOrDefaultAsync(x => x.Id == id && x.AppUser.Email == email);
       if (incomeModel == null)
       {
         return null;
@@ -39,10 +41,14 @@ namespace backend.Repository
       return incomeModel;
     }
 
-    public async Task<List<Income>> GetAllAsync(QueryObject query)
+    public async Task<List<Income>> GetAllAsync(QueryObject query, string email)
     {
-      IQueryable<Income> incomes = _context.Incomes;
+      IQueryable<Income> incomes = _context.Incomes.Include(i => i.AppUser);
 
+      if (!string.IsNullOrWhiteSpace(email))
+      {
+        incomes = incomes.Where(s => s.AppUser.Email == email);
+      }
       if (!string.IsNullOrWhiteSpace(query.Title))
       {
         incomes = incomes.Where(s => s.Title.Contains(query.Title));
@@ -63,9 +69,11 @@ namespace backend.Repository
       return await incomes.OrderBy(i => i.Date).Skip(skipNumber).Take(query.PageSize).ToListAsync();
     }
 
-    public async Task<Income?> GetbyIdAsync(int id)
+    public async Task<Income?> GetbyIdAsync(int id, string email)
     {
-      return await _context.Incomes.FirstOrDefaultAsync(i => i.Id == id);
+      return await _context.Incomes
+         .Include(i => i.AppUser)
+         .FirstOrDefaultAsync(i => i.Id == id && i.AppUser.Email == email);
     }
 
     public Task<bool> IncomeExists(int id)
@@ -73,9 +81,11 @@ namespace backend.Repository
       return _context.Incomes.AnyAsync(s => s.Id == id);
     }
 
-    public async Task<Income?> UpdateAsync(int id, UpdateIncomeRequestDto incomeDto)
+    public async Task<Income?> UpdateAsync(int id, UpdateIncomeRequestDto incomeDto, string email)
     {
-      var existingIncome = await _context.Incomes.FirstOrDefaultAsync(x => x.Id == id);
+      var existingIncome = await _context.Incomes
+              .Include(i => i.AppUser)
+              .FirstOrDefaultAsync(x => x.Id == id && x.AppUser.Email == email);
 
       if (existingIncome == null)
       {

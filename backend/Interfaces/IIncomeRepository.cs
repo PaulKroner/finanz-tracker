@@ -10,11 +10,11 @@ namespace backend.Interfaces
 {
   public interface IIncomeRepository
   {
-    Task<List<Income>> GetAllAsync(QueryObject query);
-    Task<Income?> GetbyIdAsync(int id);
+    Task<List<Income>> GetAllAsync(QueryObject query, string email);
+    Task<Income?> GetbyIdAsync(int id, string email);
     Task<Income> CreateAsync(Income incomemodel);
-    Task<Income?> UpdateAsync(int id, UpdateIncomeRequestDto incomeDto);
-    Task<Income?> DeleteAsync(int id);
+    Task<Income?> UpdateAsync(int id, UpdateIncomeRequestDto incomeDto, string email);
+    Task<Income?> DeleteAsync(int id, string email);
     Task<bool> IncomeExists(int id);
   }
 }
