@@ -9,5 +9,6 @@ namespace backend.Models
   public class AppUser : IdentityUser
   {
     public ICollection<Income> Incomes { get; set; } = new List<Income>();
+    public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
   }
 }

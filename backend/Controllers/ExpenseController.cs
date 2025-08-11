@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using backend.Data;
 using backend.Dtos.Expense;
 using backend.Interfaces;
@@ -9,6 +7,7 @@ using backend.Mappers;
 using dotnetTutorial.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -26,16 +25,29 @@ namespace backend.Controllers
       _context = context;
     }
 
+    private string GetUserEmail()
+    {
+
+      // hier scheint es ein Problem zu geben. irgendein claim ist falsch
+      return User.FindFirst(ClaimTypes.Email)?.Value
+        ?? User.FindFirst("email")?.Value
+        ?? User.FindFirst(JwtRegisteredClaimNames.Email)?.Value;
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
     {
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var expenses = await _expenseRepo.GetAllAsync(query);
+      var userEmail = GetUserEmail();
+      if (string.IsNullOrEmpty(userEmail))
+        return Unauthorized();
+
+      var expenses = await _expenseRepo.GetAllAsync(query, userEmail);
       var expenseDto = expenses.Select(s => s.ToExpenseDto());
 
-      return Ok(expenses);
+      return Ok(expenseDto);
     }
 
     [HttpGet("{id:int}")]
@@ -44,14 +56,18 @@ namespace backend.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var expense = await _expenseRepo.GetbyIdAsync(id);
+      var userEmail = GetUserEmail();
+      if (string.IsNullOrEmpty(userEmail))
+        return Unauthorized();
+
+      var expense = await _expenseRepo.GetbyIdAsync(id, userEmail);
 
       if (expense == null)
       {
         return NotFound();
       }
 
-      return Ok(expense);
+      return Ok(expense.ToExpenseDto);
     }
 
     [HttpPost]
@@ -66,7 +82,16 @@ namespace backend.Controllers
         return BadRequest($"Category with ID {expenseDto.CategoryId} does not exist.");
       }
 
+      var userEmail = GetUserEmail();
+      if (string.IsNullOrEmpty(userEmail))
+        return Unauthorized("Could not identify user from token.");
+
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+      if (user == null)
+        return Unauthorized("User not found.");
+
       var expenseModel = expenseDto.ToExpenseFromCreateDto();
+      expenseModel.AppUserId = user.Id;
 
       await _expenseRepo.CreateAsync(expenseModel);
 
@@ -79,13 +104,17 @@ namespace backend.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
+      var userEmail = GetUserEmail();
+      if (string.IsNullOrEmpty(userEmail))
+        return Unauthorized();
+
       var categoryExists = await _context.Categories.FindAsync(updateDto.CategoryId);
       if (categoryExists == null)
       {
         return BadRequest($"Category with ID {updateDto.CategoryId} does not exist.");
       }
 
-      var expenseModel = await _expenseRepo.UpdateAsync(id, updateDto);
+      var expenseModel = await _expenseRepo.UpdateAsync(id, updateDto, userEmail);
 
       if (expenseModel == null)
       {
@@ -101,7 +130,11 @@ namespace backend.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var expenseModel = await _expenseRepo.DeleteAsync(id);
+      var userEmail = GetUserEmail();
+      if (string.IsNullOrEmpty(userEmail))
+        return Unauthorized();
+
+      var expenseModel = await _expenseRepo.DeleteAsync(id, userEmail);
 
       if (expenseModel == null)
       {

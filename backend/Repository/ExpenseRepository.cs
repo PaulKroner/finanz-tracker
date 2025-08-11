@@ -26,9 +26,11 @@ namespace backend.Repository
       return expenseModel;
     }
 
-    public async Task<Expense?> DeleteAsync(int id)
+    public async Task<Expense?> DeleteAsync(int id, string email)
     {
-      var expenseModel = await _context.Expenses.FirstOrDefaultAsync(x => x.Id == id);
+      var expenseModel = await _context.Expenses
+        .Include(i => i.AppUser)
+        .FirstOrDefaultAsync(x => x.Id == id && x.AppUser.Email == email);
       if (expenseModel == null)
       {
         return null;
@@ -39,10 +41,14 @@ namespace backend.Repository
       return expenseModel;
     }
 
-    public async Task<List<Expense>> GetAllAsync(QueryObject query)
+    public async Task<List<Expense>> GetAllAsync(QueryObject query, string email)
     {
-      IQueryable<Expense> expenses = _context.Expenses;
+      IQueryable<Expense> expenses = _context.Expenses.Include(i => i.AppUser);
 
+      if (!string.IsNullOrWhiteSpace(email))
+      {
+        expenses = expenses.Where(s => s.AppUser.Email == email);
+      }
       if (!string.IsNullOrWhiteSpace(query.Title))
       {
         expenses = expenses.Where(s => s.Title.Contains(query.Title));
@@ -63,9 +69,11 @@ namespace backend.Repository
       return await expenses.OrderBy(i => i.Date).Skip(skipNumber).Take(query.PageSize).ToListAsync();
     }
 
-    public async Task<Expense?> GetbyIdAsync(int id)
+    public async Task<Expense?> GetbyIdAsync(int id, string email)
     {
-      return await _context.Expenses.FirstOrDefaultAsync(i => i.Id == id);
+      return await _context.Expenses
+        .Where(i => i.Id == id && i.AppUser.Email == email)
+        .FirstOrDefaultAsync();
     }
 
     public Task<bool> ExpenseExists(int id)
@@ -73,9 +81,11 @@ namespace backend.Repository
       return _context.Expenses.AnyAsync(s => s.Id == id);
     }
 
-    public async Task<Expense?> UpdateAsync(int id, UpdateExpenseRequestDto expenseDto)
+    public async Task<Expense?> UpdateAsync(int id, UpdateExpenseRequestDto expenseDto, string email)
     {
-      var existingExpense = await _context.Expenses.FirstOrDefaultAsync(x => x.Id == id);
+      var existingExpense = await _context.Expenses
+        .Include(i => i.AppUser)
+        .FirstOrDefaultAsync(x => x.Id == id && x.AppUser.Email == email);
 
       if (existingExpense == null)
       {

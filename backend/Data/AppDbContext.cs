@@ -18,22 +18,22 @@ namespace backend.Data
     {
       base.OnModelCreating(builder);
 
-      List<IdentityRole> roles = new List<IdentityRole>
-      {
-        new IdentityRole
-        {
-          Id = "f728c292-66d1-4d33-bc46-5f8e56d78901",
-          Name = "Admin",
-          NormalizedName = "ADMIN"
-        },
-        new IdentityRole
-        {
-          Id = "b2a9e013-1a2f-4c5d-9f8e-7e6d5c4b3a21",
-          Name = "User",
-          NormalizedName = "USER"
-        },
-      };
-      builder.Entity<IdentityRole>().HasData(roles);
+      builder.Entity<Income>()
+        .HasKey(i => i.Id);  // Primärschlüssel für Income (einzelnes Feld)
+
+      builder.Entity<Income>()
+        .HasOne(i => i.AppUser)
+        .WithMany(u => u.Incomes)
+        .HasForeignKey(i => i.AppUserId);
+
+      builder.Entity<Expense>()
+        .HasKey(i => i.Id);  // Primärschlüssel für Income (einzelnes Feld)
+
+      builder.Entity<Expense>()
+        .HasOne(i => i.AppUser)
+        .WithMany(u => u.Expenses)
+        .HasForeignKey(i => i.AppUserId);
+
     }
   }
 }
