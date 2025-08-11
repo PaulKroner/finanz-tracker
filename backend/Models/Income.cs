@@ -20,7 +20,7 @@ namespace backend.Models
     public Category? Category { get; set; }
     public DateTime Date { get; set; }
     // foreign key for User
-    public string AppUserId { get; set; }  // Achtung: IdentityUser.Id ist string
+    public string AppUserId { get; set; }
 
     // navigation property
     public AppUser AppUser { get; set; }

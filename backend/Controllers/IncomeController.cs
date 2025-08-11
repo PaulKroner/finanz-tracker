@@ -27,7 +27,7 @@ namespace backend.Controllers
 
     private string GetUserEmail()
     {
-      
+
       // hier scheint es ein Problem zu geben. irgendein claim ist falsch
       return User.FindFirst(ClaimTypes.Email)?.Value
         ?? User.FindFirst("email")?.Value
@@ -63,11 +63,9 @@ namespace backend.Controllers
       var income = await _incomeRepo.GetbyIdAsync(id, userEmail);
 
       if (income == null)
-      {
         return NotFound();
-      }
 
-      return Ok(income);
+      return Ok(income.ToIncomeDto());
     }
 
     [HttpPost]

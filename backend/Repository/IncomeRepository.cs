@@ -72,8 +72,8 @@ namespace backend.Repository
     public async Task<Income?> GetbyIdAsync(int id, string email)
     {
       return await _context.Incomes
-         .Include(i => i.AppUser)
-         .FirstOrDefaultAsync(i => i.Id == id && i.AppUser.Email == email);
+        .Where(i => i.Id == id && i.AppUser.Email == email)
+        .FirstOrDefaultAsync();
     }
 
     public Task<bool> IncomeExists(int id)
