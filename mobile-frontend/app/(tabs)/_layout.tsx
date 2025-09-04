@@ -26,31 +26,46 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
+
       <Tabs.Screen
-        name="index"
+        name="dashboard"
         options={{
-          title: 'Tab One',
+          title: 'Dashboard',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="details"
         options={{
-          title: 'Tab Two',
+          title: 'Details',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+
+      {/* hier AddIncome */}
+      <Tabs.Screen
+        name="addIncomeExpenseButton"
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+        listeners={{
+            tabPress: (e) => {
+              e.preventDefault(); // Navigation verhindern
+            },
+          }}
+      />
+
+      <Tabs.Screen
+        name="customization"
+        options={{
+          title: 'Customization',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profil',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
