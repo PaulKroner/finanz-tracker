@@ -15,7 +15,7 @@ type DesktopDialogOptionsProps = {
   setEntries: (data: any) => void,
 };
 
-const DesktopDialogOptions = ({ entry, entries, setEntries }: DesktopDialogOptionsProps) => {
+const DesktopDialogOptions = ({ entry, setEntries }: DesktopDialogOptionsProps) => {
   const [open, setOpen] = useState(false) // State for closing Popover when Dialog is closed
 
   return (

@@ -12,10 +12,10 @@ import PrivateRoute from './context/PrivateRoute'
 import Navbar from './components/navbar/page'
 import AppRoutes from './AppRoutes'
 
-const AppContent = () => {
+
+export const AppContent = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
-
 
   return (
     <>
@@ -66,6 +66,7 @@ const AppContent = () => {
 };
 
 function App() {
+
   return (
     <UserProvider>
       <ChartUpdateProvider>
