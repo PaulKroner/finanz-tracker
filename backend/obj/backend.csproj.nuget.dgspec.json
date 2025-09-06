@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/Paul/Programmieren/finanz-tracker/backend/backend.csproj": {}
+    "D:\\Coden\\finanz-tracker\\backend\\backend.csproj": {}
   },
   "projects": {
-    "/Users/Paul/Programmieren/finanz-tracker/backend/backend.csproj": {
+    "D:\\Coden\\finanz-tracker\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/Paul/Programmieren/finanz-tracker/backend/backend.csproj",
+        "projectUniqueName": "D:\\Coden\\finanz-tracker\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "/Users/Paul/Programmieren/finanz-tracker/backend/backend.csproj",
-        "packagesPath": "/Users/Paul/.nuget/packages/",
-        "outputPath": "/Users/Paul/Programmieren/finanz-tracker/backend/obj/",
+        "projectPath": "D:\\Coden\\finanz-tracker\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\paulf\\.nuget\\packages\\",
+        "outputPath": "D:\\Coden\\finanz-tracker\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/Paul/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\paulf\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
