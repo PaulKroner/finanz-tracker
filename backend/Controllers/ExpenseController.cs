@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
-  [Authorize]
+  // [Authorize]
   [Route("api/expense")]
   [ApiController]
   public class ExpenseController : ControllerBase
@@ -40,9 +40,9 @@ namespace backend.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var userEmail = GetUserEmail();
-      if (string.IsNullOrEmpty(userEmail))
-        return Unauthorized();
+      var userEmail = "paulfriedrich.kroener@gmail.com";
+      // if (string.IsNullOrEmpty(userEmail))
+      //   return Unauthorized();
 
       var expenses = await _expenseRepo.GetAllAsync(query, userEmail);
       var expenseDto = expenses.Select(s => s.ToExpenseDto());

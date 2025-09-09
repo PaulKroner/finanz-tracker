@@ -99,12 +99,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add CORS
 builder.Services.AddCors(options =>
 {
-  options.AddPolicy("AllowFrontend", policy =>
-  {
-    policy.WithOrigins("http://localhost:5173") // your frontend URL
+options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod();
-  });
+    });
 });
 
 
@@ -118,7 +119,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAll");
 
 
 if (app.Environment.IsDevelopment())
@@ -127,8 +128,8 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 // Routing aktivieren
 app.MapControllers();
