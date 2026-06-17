@@ -6,6 +6,7 @@ import type { Budget } from "../../types/types";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import MonthSelect from "../ui/monthSelect";
+import Select from "../ui/select";
 import {
   Table,
   TableBody,
@@ -71,14 +72,12 @@ const BudgetManager = () => {
         </div>
       </div>
       <div className="grid gap-2 md:grid-cols-[1fr_1fr_auto] mb-4">
-        <select className="p-2 border rounded" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-          <option value="">Kategorie</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.title}
-            </option>
-          ))}
-        </select>
+        <Select
+          value={categoryId}
+          onValueChange={setCategoryId}
+          placeholder="Kategorie"
+          options={categories.map((category) => ({ value: category.id.toString(), label: category.title }))}
+        />
         <Input type="number" placeholder="Budget in €" value={amount} onChange={(e) => setAmount(e.target.value)} />
         <Button onClick={handleSave}>Speichern</Button>
       </div>

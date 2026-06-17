@@ -10,6 +10,7 @@ import { useCategories } from "../../customHooks/dashboardHooks/useCategories";
 import type { RecurringTransaction } from "../../types/types";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import Select from "../ui/select";
 import {
   Table,
   TableBody,
@@ -81,23 +82,32 @@ const RecurringManager = () => {
       <div className="grid gap-2 mb-4 md:grid-cols-2">
         <Input placeholder="Titel" value={title} onChange={(e) => setTitle(e.target.value)} />
         <Input type="number" placeholder="Betrag" value={amount} onChange={(e) => setAmount(e.target.value)} />
-        <select className="p-2 border rounded" value={type} onChange={(e) => setType(e.target.value as "income" | "expense")}>
-          <option value="expense">Ausgabe</option>
-          <option value="income">Einnahme</option>
-        </select>
-        <select className="p-2 border rounded" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-          <option value="">Kategorie</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.title}
-            </option>
-          ))}
-        </select>
-        <select className="p-2 border rounded" value={frequency} onChange={(e) => setFrequency(e.target.value as "weekly" | "monthly" | "yearly")}>
-          <option value="weekly">Wöchentlich</option>
-          <option value="monthly">Monatlich</option>
-          <option value="yearly">Jährlich</option>
-        </select>
+        <Select
+          value={type}
+          onValueChange={(value) => {
+            setType(value as "income" | "expense");
+            setCategoryId("");
+          }}
+          options={[
+            { value: "expense", label: "Ausgabe" },
+            { value: "income", label: "Einnahme" },
+          ]}
+        />
+        <Select
+          value={categoryId}
+          onValueChange={setCategoryId}
+          placeholder="Kategorie"
+          options={categories.map((category) => ({ value: category.id.toString(), label: category.title }))}
+        />
+        <Select
+          value={frequency}
+          onValueChange={(value) => setFrequency(value as "weekly" | "monthly" | "yearly")}
+          options={[
+            { value: "weekly", label: "Wöchentlich" },
+            { value: "monthly", label: "Monatlich" },
+            { value: "yearly", label: "Jährlich" },
+          ]}
+        />
         <Input type="date" value={nextRunDate} onChange={(e) => setNextRunDate(e.target.value)} />
         <Button className="md:col-span-2" onClick={handleCreate}>Wiederholung speichern</Button>
       </div>

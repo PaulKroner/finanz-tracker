@@ -23,14 +23,16 @@ import { useChartUpdate } from "../../context/ChartUpdateContext";
 import { useCategories } from "../../customHooks/dashboardHooks/useCategories";
 import { toast } from "sonner";
 import { apiClient } from "../../api/client";
+import Select from "../ui/select";
 
 type Selection = "income" | "expense" | null;
 
 type AddIncomeExpenseButtonProps = {
   mode?: "bottom" | "sidebar";
+  isSidebarCollapsed?: boolean;
 };
 
-const AddIncomeExpenseButton = ({ mode = "bottom" }: AddIncomeExpenseButtonProps) => {
+const AddIncomeExpenseButton = ({ mode = "bottom", isSidebarCollapsed = false }: AddIncomeExpenseButtonProps) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [selected, setSelected] = useState<Selection>("expense");
   const [title, setTitle] = useState("");
@@ -85,13 +87,14 @@ const AddIncomeExpenseButton = ({ mode = "bottom" }: AddIncomeExpenseButtonProps
         <Button
           className={
             mode === "sidebar"
-              ? "h-12 justify-start gap-3 rounded-xl"
+              ? cn("h-12 rounded-xl", isSidebarCollapsed ? "justify-center px-3" : "justify-start gap-3")
               : "h-14 w-14 rounded-2xl shadow-md"
           }
           variant={mode === "sidebar" ? "default" : "default"}
+          title={mode === "sidebar" && isSidebarCollapsed ? "Buchung hinzufügen" : undefined}
         >
           <PlusCircle className={mode === "sidebar" ? "size-5" : "size-7"} />
-          {mode === "sidebar" && <span>Buchung hinzufügen</span>}
+          {mode === "sidebar" && <span className={cn(isSidebarCollapsed && "hidden")}>Buchung hinzufügen</span>}
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -153,18 +156,13 @@ const AddIncomeExpenseButton = ({ mode = "bottom" }: AddIncomeExpenseButtonProps
           {/* category */}
           <div className="flex items-center justify-center">
             <div className="w-24 p-2 flex justify-start items-start">Kategorie:</div>
-            <select
-              className="w-32 p-2 border rounded"
-              value={categoryId ?? ""}
-              onChange={(e) => setCategoryId(Number(e.target.value))}
-            >
-              <option value="" disabled>Kategorie wählen</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.title}
-                </option>
-              ))}
-            </select>
+            <Select
+              className="w-40"
+              value={categoryId?.toString() ?? ""}
+              onValueChange={(value) => setCategoryId(value ? Number(value) : null)}
+              placeholder="Kategorie wählen"
+              options={categories.map((category) => ({ value: category.id.toString(), label: category.title }))}
+            />
           </div>
 
           {/* calendar */}

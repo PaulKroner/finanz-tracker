@@ -7,14 +7,25 @@ import { Navigate, Route, Routes } from 'react-router'
 import DetailsPage from './pages/details/DetailsPage'
 import { Toaster } from 'sonner'
 import CustomizationPage from './pages/customization/CustomizationPage'
+import { useState } from 'react'
+import { cn } from './lib/utils'
 
 function App() {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
 
   return (
     <>
       <ChartUpdateProvider>
-        <Navbar />
-        <main className="w-full flex flex-col min-h-screen px-4 pt-4 pb-28 md:pb-6 md:pl-72 md:pr-8 lg:pr-12">
+        <Navbar
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebar={() => setIsSidebarCollapsed((current) => !current)}
+        />
+        <main
+          className={cn(
+            "w-full flex flex-col min-h-screen px-4 pt-4 pb-28 transition-[padding] duration-200 md:pb-6 md:pr-8 lg:pr-12",
+            isSidebarCollapsed ? "md:pl-24" : "md:pl-72"
+          )}
+        >
 
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />

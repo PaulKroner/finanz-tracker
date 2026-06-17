@@ -7,6 +7,7 @@ import DetailsLastExpense from "../../components/details/DetailsLastExpense";
 import DetailsCategoryOverview from "../../components/details/DetailsCategoryOverview";
 import FinanceFileActions from "../../components/details/FinanceFileActions";
 import { Input } from "../../components/ui/input";
+import Select from "../../components/ui/select";
 import { useCategories } from "../../customHooks/dashboardHooks/useCategories";
 
 const DetailsPage = () => {
@@ -32,23 +33,31 @@ const DetailsPage = () => {
         <h2 className="text-lg font-semibold mb-4">Filter</h2>
         <div className="grid gap-2 md:grid-cols-2">
           <Input placeholder="Titel suchen" value={titleFilter} onChange={(e) => setTitleFilter(e.target.value)} />
-          <select className="p-2 border rounded" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-            <option value="">Alle Kategorien</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.title}
-              </option>
-            ))}
-          </select>
-          <select className="p-2 border rounded" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <option value="date">Datum</option>
-            <option value="title">Titel</option>
-            <option value="amount">Betrag</option>
-          </select>
-          <select className="p-2 border rounded" value={isDescending ? "desc" : "asc"} onChange={(e) => setIsDescending(e.target.value === "desc")}>
-            <option value="desc">Absteigend</option>
-            <option value="asc">Aufsteigend</option>
-          </select>
+          <Select
+            value={categoryId}
+            onValueChange={setCategoryId}
+            options={[
+              { value: "", label: "Alle Kategorien" },
+              ...categories.map((category) => ({ value: category.id.toString(), label: category.title })),
+            ]}
+          />
+          <Select
+            value={sortBy}
+            onValueChange={setSortBy}
+            options={[
+              { value: "date", label: "Datum" },
+              { value: "title", label: "Titel" },
+              { value: "amount", label: "Betrag" },
+            ]}
+          />
+          <Select
+            value={isDescending ? "desc" : "asc"}
+            onValueChange={(value) => setIsDescending(value === "desc")}
+            options={[
+              { value: "desc", label: "Absteigend" },
+              { value: "asc", label: "Aufsteigend" },
+            ]}
+          />
         </div>
       </div>
 

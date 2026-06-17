@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Input } from "../../ui/input";
 import { toast } from "sonner";
 import { updateCategory } from "../../../api/customization/UpdateCategory";
+import Select from "../../ui/select";
 
 type EditButtonProps = {
   category: any;
@@ -94,11 +95,16 @@ const EditButton = ({ category, setCategories, onClosePopover }: EditButtonProps
             </div>
             <div className="flex items-center">
               <div className="w-24 p-2 flex justify-start items-start">Typ:</div>
-              <select className="w-32 p-2 border rounded" value={type} onChange={(e) => setType(e.target.value as "income" | "expense" | "both")}>
-                <option value="both">Beides</option>
-                <option value="income">Einnahme</option>
-                <option value="expense">Ausgabe</option>
-              </select>
+              <Select
+                className="w-40"
+                value={type}
+                onValueChange={(value) => setType(value as "income" | "expense" | "both")}
+                options={[
+                  { value: "both", label: "Beides" },
+                  { value: "income", label: "Einnahme" },
+                  { value: "expense", label: "Ausgabe" },
+                ]}
+              />
             </div>
             <div className="flex items-center">
               <div className="w-24 p-2 flex justify-start items-start">Farbe:</div>

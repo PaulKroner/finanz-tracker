@@ -24,6 +24,7 @@ import { useCategories } from "../../../customHooks/dashboardHooks/useCategories
 import { format } from "date-fns";
 import { updateEntry } from "../../../api/detailsAPI/UpdateEntry";
 import { toast } from "sonner";
+import Select from "../../ui/select";
 
 type Selection = "income" | "expense" | null;
 
@@ -131,18 +132,13 @@ const EditButtonTable = ({ entry, setEntries, onClosePopover }: EditButtonTableP
           {/* category */}
           <div className="flex items-center justify-center">
             <div className="w-24 p-2 flex justify-start items-start">Kategorie:</div>
-            <select
-              className="w-32 p-2 border rounded"
-              value={categoryId ?? ""}
-              onChange={(e) => setCategoryId(Number(e.target.value))}
-            >
-              <option value="" disabled>Kategorie wählen</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.title}
-                </option>
-              ))}
-            </select>
+            <Select
+              className="w-40"
+              value={categoryId?.toString() ?? ""}
+              onValueChange={(value) => setCategoryId(value ? Number(value) : null)}
+              placeholder="Kategorie wählen"
+              options={categories.map((category) => ({ value: category.id.toString(), label: category.title }))}
+            />
           </div>
 
           {/* calendar */}
