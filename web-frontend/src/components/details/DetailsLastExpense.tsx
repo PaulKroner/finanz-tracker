@@ -7,11 +7,11 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table"
-import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
 import type { ExpenseEntry } from "../../types/types";
 import DesktopDialogOptions from "./desktop/DesktopDialogOptions";
 import MobileDrawerOptions from "./mobile/MobileDrawerOptions";
+import { apiClient } from "../../api/client";
 
 
 type ChartYearlProps = {
@@ -22,7 +22,14 @@ type ChartMonthProps = {
   selectedMonth: number;
 };
 
-const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & ChartMonthProps) => {
+type FilterProps = {
+  titleFilter: string;
+  categoryId: string;
+  sortBy: string;
+  isDescending: boolean;
+};
+
+const DetailsLastExpense = ({ selectedYear, selectedMonth, titleFilter, categoryId, sortBy, isDescending }: ChartYearlProps & ChartMonthProps & FilterProps) => {
 
   const [entries, setEntries] = useState<ExpenseEntry[]>([]);
 
@@ -32,7 +39,16 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
     const fetchData = async () => {
       try {
         const expenseRes = await Promise.all([
-          axios.get<ExpenseEntry[]>(`http://localhost:5062/api/expense?year=${selectedYear}&month=${selectedMonth + 1}`),
+          apiClient.get<ExpenseEntry[]>("/api/expense", {
+            params: {
+              year: selectedYear,
+              month: selectedMonth + 1,
+              title: titleFilter || undefined,
+              categoryId: categoryId || undefined,
+              sortBy,
+              isDecending: isDescending,
+            },
+          }),
         ]);
 
         const expenseData = expenseRes[0].data.map((entry: any) => ({
@@ -48,7 +64,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
     };
 
     fetchData();
-  }, [selectedYear, selectedMonth, trigger]);
+  }, [selectedYear, selectedMonth, titleFilter, categoryId, sortBy, isDescending, trigger]);
 
   return (
     <div className="border rounded-xl p-4 shadow-sm w-full md:w-150">
@@ -72,7 +88,7 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
                 <TableCell className="font-medium">{formattedDate}</TableCell>
                 <TableCell className="font-medium">{entry.title}</TableCell>
                 <TableCell className="font-medium">
-                  {"+ "} {amount} €
+                    {"- "} {amount} €
                 </TableCell>
                 <TableCell className="flex justify-center">
 
@@ -80,7 +96,6 @@ const DetailsLastExpense = ({ selectedYear, selectedMonth }: ChartYearlProps & C
                   <section className="hidden md:flex">
                     <DesktopDialogOptions
                       entry={entry}
-                      entries={entries}
                       setEntries={setEntries}
                     />
                   </section>

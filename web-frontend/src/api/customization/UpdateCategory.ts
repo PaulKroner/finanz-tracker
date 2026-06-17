@@ -1,9 +1,9 @@
-import axios from "axios";
 import { toast } from "sonner";
+import { apiClient } from "../client";
 
 export const updateCategory = async (id: number, updatedCategory: any) => {
   try {
-    const response = await axios.put(`http://localhost:5062/api/category/${id}`, updatedCategory, {
+    const response = await apiClient.put(`/api/category/${id}`, updatedCategory, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -15,7 +15,7 @@ export const updateCategory = async (id: number, updatedCategory: any) => {
     }
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
+    if (error && typeof error === "object" && "response" in error) {
       toast.error("Fehler beim Aktualisieren der Kategorie (Serverantwort).");
     } else {
       toast.error("Unbekannter Fehler beim Aktualisieren der Kategorie.");

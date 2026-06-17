@@ -58,9 +58,22 @@ namespace backend.Repository
         expenses = expenses.Where(s => s.Date.Month == query.Month.Value);
       }
 
+      if (query.CategoryId.HasValue)
+      {
+        expenses = expenses.Where(s => s.CategoryId == query.CategoryId.Value);
+      }
+
+      expenses = query.SortBy?.ToLower() switch
+      {
+        "title" => query.IsDecending ? expenses.OrderByDescending(i => i.Title) : expenses.OrderBy(i => i.Title),
+        "amount" => query.IsDecending ? expenses.OrderByDescending(i => i.Amount) : expenses.OrderBy(i => i.Amount),
+        "date" => query.IsDecending ? expenses.OrderByDescending(i => i.Date) : expenses.OrderBy(i => i.Date),
+        _ => query.IsDecending ? expenses.OrderByDescending(i => i.Date) : expenses.OrderBy(i => i.Date),
+      };
+
       var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
-      return await expenses.OrderBy(i => i.Date).Skip(skipNumber).Take(query.PageSize).ToListAsync();
+      return await expenses.Skip(skipNumber).Take(query.PageSize).ToListAsync();
     }
 
     public async Task<Expense?> GetbyIdAsync(int id)

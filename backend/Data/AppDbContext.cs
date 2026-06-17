@@ -11,6 +11,8 @@ namespace backend.Data
     public DbSet<Expense> Expenses { get; set; } = null!;
     public DbSet<Income> Incomes { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
+    public DbSet<Budget> Budgets { get; set; } = null!;
+    public DbSet<RecurringTransaction> RecurringTransactions { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -32,6 +34,10 @@ namespace backend.Data
         },
       };
       builder.Entity<IdentityRole>().HasData(roles);
+
+      builder.Entity<Budget>()
+        .HasIndex(b => new { b.CategoryId, b.Year, b.Month })
+        .IsUnique();
     }
   }
 }

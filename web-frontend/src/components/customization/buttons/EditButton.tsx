@@ -24,6 +24,9 @@ type EditButtonProps = {
 const EditButton = ({ category, setCategories, onClosePopover }: EditButtonProps) => {
 
   const [title, setTitle] = useState("");
+  const [type, setType] = useState<"income" | "expense" | "both">("both");
+  const [color, setColor] = useState("#64748b");
+  const [icon, setIcon] = useState("circle");
 
   const handleUpdate = async () => {
     // Check if all fields are filled
@@ -36,6 +39,9 @@ const EditButton = ({ category, setCategories, onClosePopover }: EditButtonProps
     try {
       const updatedData = {
         title,
+        type,
+        color,
+        icon,
       };
 
       const updatedEntry = await updateCategory(category.id, updatedData);
@@ -56,6 +62,9 @@ const EditButton = ({ category, setCategories, onClosePopover }: EditButtonProps
     useEffect(() => {
       if (category) {
         setTitle(category.title);
+        setType(category.type ?? "both");
+        setColor(category.color ?? "#64748b");
+        setIcon(category.icon ?? "circle");
       }
     }, [category]);
 
@@ -82,6 +91,22 @@ const EditButton = ({ category, setCategories, onClosePopover }: EditButtonProps
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
+            </div>
+            <div className="flex items-center">
+              <div className="w-24 p-2 flex justify-start items-start">Typ:</div>
+              <select className="w-32 p-2 border rounded" value={type} onChange={(e) => setType(e.target.value as "income" | "expense" | "both")}>
+                <option value="both">Beides</option>
+                <option value="income">Einnahme</option>
+                <option value="expense">Ausgabe</option>
+              </select>
+            </div>
+            <div className="flex items-center">
+              <div className="w-24 p-2 flex justify-start items-start">Farbe:</div>
+              <Input className="w-32 p-1" type="color" value={color} onChange={(e) => setColor(e.target.value)} />
+            </div>
+            <div className="flex items-center">
+              <div className="w-24 p-2 flex justify-start items-start">Icon:</div>
+              <Input className="w-32 p-4" value={icon} onChange={(e) => setIcon(e.target.value)} />
             </div>
 
           </div>

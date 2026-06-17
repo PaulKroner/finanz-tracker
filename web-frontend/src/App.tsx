@@ -13,7 +13,8 @@ function App() {
   return (
     <>
       <ChartUpdateProvider>
-        <main className="w-full flex flex-col min-h-screen px-4 md:px-20 pt-4">
+        <Navbar />
+        <main className="w-full flex flex-col min-h-screen px-4 pt-4 pb-28 md:pb-6 md:pl-72 md:pr-8 lg:pr-12">
 
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
@@ -27,9 +28,6 @@ function App() {
 
           <Footer />
         </main>
-        <section className="sticky bottom-0 w-full">
-          <Navbar />
-        </section>
       </ChartUpdateProvider>
       <Toaster />
     </>

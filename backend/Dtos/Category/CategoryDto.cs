@@ -9,5 +9,8 @@ namespace backend.Dtos.Category
   {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
-    }
+    public string Type { get; set; } = "both";
+    public string Color { get; set; } = "#64748b";
+    public string Icon { get; set; } = "circle";
+  }
 }

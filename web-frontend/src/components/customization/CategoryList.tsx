@@ -34,6 +34,9 @@ const CategoryList = () => {
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
+            <TableHead>Typ</TableHead>
+            <TableHead>Farbe</TableHead>
+            <TableHead>Icon</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
@@ -41,6 +44,16 @@ const CategoryList = () => {
           {categories.map((category) => (
             <TableRow key={category.id}>
               <TableCell>{category.title}</TableCell>
+              <TableCell>
+                {category.type === "income" ? "Einnahme" : category.type === "expense" ? "Ausgabe" : "Beides"}
+              </TableCell>
+              <TableCell>
+                <span className="inline-flex items-center gap-2">
+                  <span className="h-4 w-4 rounded-full border" style={{ backgroundColor: category.color }} />
+                  {category.color}
+                </span>
+              </TableCell>
+              <TableCell>{category.icon}</TableCell>
               <TableCell className="flex justify-center">
                 <section className="hidden md:flex">
                   <DesktopCategoryOptions category={category} setCategories={setCategories} />
@@ -56,7 +69,7 @@ const CategoryList = () => {
       </Table>
 
       <div className="flex justify-center mt-4">
-          <AddCategoryButton />
+          <AddCategoryButton setCategories={setCategories} />
       </div>
 
     </div>

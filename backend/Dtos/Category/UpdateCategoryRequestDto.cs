@@ -11,5 +11,8 @@ namespace backend.Dtos.Category
     [Required]
     [MaxLength(280, ErrorMessage = "Title cannot be over 280 characters!")]
     public string Title { get; set; } = string.Empty;
+    public string Type { get; set; } = "both";
+    public string Color { get; set; } = "#64748b";
+    public string Icon { get; set; } = "circle";
   }
 }

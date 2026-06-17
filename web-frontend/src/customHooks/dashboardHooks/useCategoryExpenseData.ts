@@ -13,19 +13,13 @@ type ExpenseEntry = {
 type Category = {
   id: number;
   title: string;
+  color: string;
 };
 
 type CategoryChartData = {
   category: string;
   amount: number;
   fill: string;
-};
-
-const categoryColors: Record<number, string> = {
-  1: "var(--chart-1)",
-  2: "var(--chart-2)",
-  3: "var(--chart-3)",
-  4: "var(--chart-4)",
 };
 
 export const useCategoryExpenseData = (selectedYear: number) => {
@@ -42,7 +36,7 @@ export const useCategoryExpenseData = (selectedYear: number) => {
 
         const categoriesMap = new Map<number, { name: string; color: string }>();
         categoriesRes.data.forEach((cat) => {
-          categoriesMap.set(cat.id, { name: cat.title, color: categoryColors[cat.id] || "var(--chart-other)" });
+          categoriesMap.set(cat.id, { name: cat.title, color: cat.color || "var(--chart-other)" });
         });
 
         const categoryTotals: Record<number, number> = {};

@@ -4,6 +4,7 @@ import ChartYearly from "../../components/dashboard/chartYearly";
 import YearSelect from "../../components/ui/yearSelect";
 import { useState } from "react";
 import ChartCategoryYearly from "../../components/dashboard/ChartCategoryYearly";
+import FinanceInsights from "../../components/dashboard/FinanceInsights";
 
 const Dashboard = () => {
 
@@ -18,6 +19,8 @@ const Dashboard = () => {
       </div>
 
       <ChartYearly selectedYear={selectedYear} />
+
+      <FinanceInsights selectedYear={selectedYear} />
 
       <DashboardSaldo selectedYear={selectedYear} />
 

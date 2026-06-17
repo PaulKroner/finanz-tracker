@@ -15,36 +15,39 @@ import {
   PopoverTrigger,
 } from "../../components/ui/popover"
 import { Button } from '../../components/ui/button';
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { Input } from "../../components/ui/input"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar as CalendarIcon, PlusCircle } from "lucide-react"
 import { useState } from "react";
-import axios from "axios";
 import { useChartUpdate } from "../../context/ChartUpdateContext";
 import { useCategories } from "../../customHooks/dashboardHooks/useCategories";
 import { toast } from "sonner";
+import { apiClient } from "../../api/client";
 
 type Selection = "income" | "expense" | null;
 
-const AddIncomeExpenseButton = () => {
-  const [date, setDate] = useState<Date>();
-  const [selected, setSelected] = useState<Selection>(null);
+type AddIncomeExpenseButtonProps = {
+  mode?: "bottom" | "sidebar";
+};
+
+const AddIncomeExpenseButton = ({ mode = "bottom" }: AddIncomeExpenseButtonProps) => {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [selected, setSelected] = useState<Selection>("expense");
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
 
-  const categories = useCategories();
+  const categories = useCategories().filter((category) => !selected || category.type === selected || category.type === "both");
 
   const { refresh } = useChartUpdate()
 
   const handleSubmit = async () => {
     if (!selected || !title || !amount || !date || categoryId === null) {
-      alert("Bitte fülle alle Felder aus.");
+      toast.error("Bitte fülle alle Felder aus.");
       return;
     }
 
-    const url = `http://localhost:5062/api/${selected}`;
+    const url = `/api/${selected}`;
 
     try {
       const payload = {
@@ -54,7 +57,7 @@ const AddIncomeExpenseButton = () => {
         date: date.toISOString(), // full ISO 8601 format
       };
 
-      await axios.post(url, payload, {
+      await apiClient.post(url, payload, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -63,10 +66,11 @@ const AddIncomeExpenseButton = () => {
       toast.success("Erfolgreich hinzugefügt!");
 
       // Reset form
-      setSelected(null);
+      setSelected("expense");
       setTitle("");
       setAmount("");
-      setDate(undefined);
+      setDate(new Date());
+      setCategoryId(null);
 
       refresh(); // Trigger chart update
     } catch (error) {
@@ -78,9 +82,16 @@ const AddIncomeExpenseButton = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="flex flex-col h-15 w-15 p-4" variant="ghost">
-          <IoIosAddCircleOutline className="size-12" strokeWidth="5"/>
-          <div></div>
+        <Button
+          className={
+            mode === "sidebar"
+              ? "h-12 justify-start gap-3 rounded-xl"
+              : "h-14 w-14 rounded-2xl shadow-md"
+          }
+          variant={mode === "sidebar" ? "default" : "default"}
+        >
+          <PlusCircle className={mode === "sidebar" ? "size-5" : "size-7"} />
+          {mode === "sidebar" && <span>Buchung hinzufügen</span>}
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -92,14 +103,20 @@ const AddIncomeExpenseButton = () => {
           <div className="flex flex-row justify-center gap-4">
             <Button
               variant={selected === "income" ? "default" : "outline"}
-              onClick={() => setSelected("income")}
+              onClick={() => {
+                setSelected("income");
+                setCategoryId(null);
+              }}
               className="w-26"
             >
               Einnahme
             </Button>
             <Button
               variant={selected === "expense" ? "default" : "outline"}
-              onClick={() => setSelected("expense")}
+              onClick={() => {
+                setSelected("expense");
+                setCategoryId(null);
+              }}
               className="w-26"
             >
               Ausgabe

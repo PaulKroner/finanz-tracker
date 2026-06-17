@@ -70,6 +70,9 @@ namespace backend.Repository
       }
 
       existingCategory.Title = categoryDto.Title;
+      existingCategory.Type = categoryDto.Type;
+      existingCategory.Color = categoryDto.Color;
+      existingCategory.Icon = categoryDto.Icon;
 
       await _context.SaveChangesAsync();
       return existingCategory;

@@ -32,7 +32,7 @@ namespace backend.Controllers
       var categories = await _categoryRepo.GetAllAsync(title);
       var categoryDto = categories.Select(s => s.ToCategoryDto());
 
-      return Ok(categories);
+      return Ok(categoryDto);
     }
 
     [HttpGet("{id:int}")]
@@ -48,7 +48,7 @@ namespace backend.Controllers
         return NotFound();
       }
 
-      return Ok(category);
+      return Ok(category.ToCategoryDto());
     }
 
     [HttpPost]

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient } from "../../api/client";
 
 export type Category = {
   id: number;
   title: string;
+  type: "income" | "expense" | "both";
+  color: string;
+  icon: string;
 };
 
 export const useCategories = () => {
@@ -12,7 +15,7 @@ export const useCategories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get<Category[]>("http://localhost:5062/api/category");
+        const res = await apiClient.get<Category[]>("/api/category");
         setCategories(res.data);
       } catch (error) {
         console.error("Fehler beim Laden der Kategorien:", error);

@@ -1,11 +1,11 @@
-import axios from "axios";
 import { toast } from "sonner";
+import { apiClient } from "../client";
 
-type NewCategory = { title: string };
+type NewCategory = { title: string; type: string; color: string; icon: string };
 
 export const postCategory = async (newCategory: NewCategory) => {
   try {
-    const response = await axios.post(`http://localhost:5062/api/category`, newCategory, {
+    const response = await apiClient.post("/api/category", newCategory, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -15,9 +15,8 @@ export const postCategory = async (newCategory: NewCategory) => {
     return response.data;
   } catch (error) {
 
-    if (axios.isAxiosError(error) && error.response) {
+    if (error && typeof error === "object" && "response" in error) {
       toast.error("Fehler beim Erstellen der Kategorie (Serverantwort).");
-      console.error('Server response:', error.response.data);
     } else {
       toast.error("Unbekannter Fehler beim Erstellen der Kategorie.");
     }
